@@ -1,0 +1,211 @@
+.leave-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+.leave-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+}
+
+/* header */
+.leave-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.leave-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: #eef2ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #2563eb;
+}
+
+.leave-remaining {
+  text-align: right;
+}
+
+.leave-remaining-number {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.leave-remaining-text {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* title */
+.leave-title {
+  margin-top: 12px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* progress */
+.leave-progress {
+  margin-top: 10px;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.leave-progress-bar {
+  height: 100%;
+  background: #22c55e;
+  border-radius: 999px;
+}
+
+/* footer */
+.leave-footer {
+  margin-top: 8px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: #6b7280;
+}
+/* ===== modal overlay ===== */
+.leave-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* ===== modal box ===== */
+.leave-modal {
+  background: #ffffff;
+  width: 360px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  animation: fadeIn 0.2s ease;
+}
+
+/* header */
+.leave-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid #e5e7eb;
+  font-weight: 600;
+}
+
+.leave-modal-header button {
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* body */
+.leave-modal-body {
+  padding: 16px;
+}
+
+.leave-modal-row {
+  margin-bottom: 12px;
+}
+
+.leave-modal-row strong {
+  display: block;
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.leave-modal-row p {
+  margin: 0;
+  font-size: 14px;
+  color: #374151;
+}
+
+/* animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.fc-daygrid-event {
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.fc-daygrid-more-link {
+  font-size: 12px;
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.fc-popover {
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.dashboard-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 20px;
+}
+.dashboard-page {
+  padding: 24px;
+  background: #f8fafc;
+}
+
+/* summary */
+.leave-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+
+/* section spacing */
+.dashboard-section {
+  margin-bottom: 32px;
+}
+
+/* calendar header */
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.calendar-header h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+/* calendar card */
+.calendar-card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.calendar-card.full-width {
+  width: 100%;
+}

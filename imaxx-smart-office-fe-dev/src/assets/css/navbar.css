@@ -1,0 +1,85 @@
+.navbar {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-bottom: #E5E7EB 1px solid;
+}
+
+/* --------------navbar header */
+.navbar header {
+    position: relative;
+    width: 238px
+}
+
+.navbar header .logo {
+    margin: 0px;
+    padding-left: 60px;
+}
+
+.navbar header .toggle {
+    position:absolute;
+    top:50%;
+    left:25px;
+    transform: translateY(-50%);
+    height:25px;
+    width:25px;
+    color:#155DFC;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+
+
+
+/* ================== others ================================== */
+.logo {
+    padding-left: 1rem;
+    line-height: 80%;
+}
+
+.logo-company {
+    font-size: 14px;
+    color: #155DFC;
+}
+
+.logo-system {
+    font-size: 10px;
+    color: #5c5c5c;
+    font-weight: lighter;
+}
+
+.nav-user-avatar {
+    color: #5c5c5c;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.dropdown-item {
+    color: #5c5c5c;
+}
+
+.navbar .btn {
+    --bs-btn-border-color: transparent;
+}
+
+.navbar .nav-noti-pill {
+    display: none;
+}
+
+.navbar .nav-noti-danger-pill {
+    border: #000 solid 1.5px;
+    background-color: rgba(232, 16, 16, 1);
+    padding: 4px;
+    position: absolute;
+    border-radius: 50%;
+    right: 25%;
+    top: 6px;
+}

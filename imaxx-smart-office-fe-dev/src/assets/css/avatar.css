@@ -1,0 +1,126 @@
+/* ----------------------------------------------Profile Uploader ---------------------------------------------- */
+.profile-uploader {
+  position: relative;
+}
+
+.profile-uploader .avatar-preview {
+  position: relative;
+  width: 100px;
+  height: 100px;
+}
+
+/* overlay */
+.profile-uploader .upload-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  transition: 0.2s ease;
+  pointer-events: none;
+}
+
+/* hover desktop */
+.profile-uploader .avatar-preview:hover .upload-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* click/mobile */
+.profile-uploader .upload-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.profile-uploader .avatar-upload-btn {
+  color:#ffffff;
+  background-color: none;
+  padding: 0;
+  border: 0;
+}
+
+.profile-uploader .avatar-upload-btn:hover, .profile-uploader .avatar-upload-btn:focus, .profile-uploader .avatar-upload-btn:active {
+  color:#ffffff;
+  background-color: none;
+  box-shadow: none !important;
+  border: 0;
+  padding:0;
+}
+
+.profile-uploader .avatar-image {
+  object-fit: cover !important;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  cursor: pointer;
+}
+
+/* ----------------------------------------------Profile Viewer ---------------------------------------------- */
+
+.profile-viewer {
+  position: relative;
+}
+
+.profile-viewer .avatar-preview {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+
+/* overlay */
+.profile-viewer .upload-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  opacity: 0;
+  transition: 0.2s ease;
+  pointer-events: none;
+}
+
+/* hover desktop */
+.profile-viewer .avatar-preview:hover .upload-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* click/mobile */
+.profile-viewer .upload-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.profile-viewer .avatar-upload-btn {
+  color:#ffffff;
+  background-color: none;
+  padding: 0;
+  border: 0;
+}
+
+.profile-viewer .avatar-upload-btn:hover, .profile-viewer .avatar-upload-btn:focus, .profile-viewer .avatar-upload-btn:active {
+  color:#ffffff;
+  background-color: none;
+  box-shadow: none !important;
+  border: 0;
+  padding:0;
+}
+
+.profile-viewer .avatar-image {
+  object-fit: cover !important;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  cursor: pointer;
+}

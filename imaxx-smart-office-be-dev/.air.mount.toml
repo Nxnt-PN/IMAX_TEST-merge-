@@ -1,0 +1,44 @@
+#:schema https://json.schemastore.org/any.json
+
+env_files = []
+root = "."
+testdata_dir = "testdata"
+tmp_dir = "tmp"
+
+[build]
+  args_bin = []
+  bin = "./tmp/main"
+  cmd = "go build -o ./tmp/main ."
+  delay = 1000
+  entrypoint = ["./tmp/main"]
+
+  exclude_dir = ["assets", "tmp", "vendor", "testdata"]
+  exclude_file = []
+  exclude_regex = ["_test.go"]
+
+  include_ext = ["go", "tpl", "tmpl", "html"]
+
+  poll = true
+  poll_interval = 500
+
+  kill_delay = "0s"
+  log = "build-errors.log"
+
+[color]
+  app = ""
+  build = "yellow"
+  main = "magenta"
+  runner = "green"
+  watcher = "cyan"
+
+[log]
+  main_only = false
+  silent = false
+  time = false
+
+[misc]
+  clean_on_exit = false
+
+[screen]
+  clear_on_rebuild = false
+  keep_scroll = true

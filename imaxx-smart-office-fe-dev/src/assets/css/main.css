@@ -1,0 +1,307 @@
+.user-details-col {
+    min-width: 150px;
+}
+
+.user-details .user-details-name{
+    font-size: 13px;
+    line-height: 100%;
+}
+
+.user-details .user-details-name .username{
+    padding-top: 6px;
+    font-weight: 100;
+    font-size: 11px;
+    color: #6c757d;
+}
+
+.user-details .user-details-name .name{
+    padding-top: 9px;
+    font-weight: 500;
+    color: #333;
+}
+
+.reason-col {
+  width: 300px;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+}
+
+.leave-type-col {
+  min-width: 80px;
+}
+
+.login-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:space-around;
+}
+
+.system-details {
+    width:500px;
+    line-height:10%;
+}
+
+.title-system {
+    font-size: 2rem;
+    color:#4d4c4c;
+    font-weight: lighter;
+}
+.title-company {
+    font-size: 3rem;
+    display: block;
+}
+.title-company-sub {
+    font-size: 1.0rem;
+    color: #4d4c4c;
+}
+.first-title-company {
+    color:#155DFC
+}
+.first-title-company .first-letter {
+    color:#EE3E23;
+}
+
+.login-head {
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+
+.login-card {
+    border-radius: 14px;
+    height: 500px;
+    width: 450px;
+    padding: 1rem;
+}
+
+.login-card .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-leave-request-form {
+  display: grid;
+  place-items: center;
+}
+
+.leave-request-form-card {
+    min-width: 360px;
+    width: auto;
+    max-width: 500px;
+}
+
+.leave-rq-form-icon {
+    color: #4A83FC;
+    background-color: #dbeafe;
+    width:75px;
+    font-size: 50px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+
+
+.leave-header .title {
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction: column;
+}
+
+.tooltip {
+  width: max-content;
+  background-color: #444;
+  color: white;
+  font-size: 90%;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.sidebar-tooltip {
+  background: #4A83FC;
+  color: #dbeafe;
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0,0,0,.25);
+}
+
+.sidebar-tooltip-arrow {
+  fill: #4A83FC; /* สีเดียวกับ tooltip */
+}
+
+.upload-file-element {
+  width: max-content;
+  height: max-content;
+  color: #2379fc;
+}
+
+.upload-file-description {
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+/*  keyword  */
+.last-row-filter {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.last-row-filter div:first-child {
+    flex-shrink: 1;
+    flex-grow:80;
+}
+
+.last-row-filter div:last-child {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 12px;
+    flex: 1 1 210px;
+    width: 100%;
+}
+
+.last-row-filter div:last-child button{
+    max-width: 100%;
+    flex-grow: 1;
+}
+
+.from-to-text {
+    width: 40px
+}
+
+.noti-read {
+
+}
+
+.noti-unread {
+    background-color: #d3e2f5;
+}
+
+.log-history-container {
+  margin-top: 15px;
+  padding-left: 20px; /* เว้นที่ให้เส้นและจุด */
+  border-left: #2379fc solid 2px;
+  margin-left: 10px; /* ขยับเส้นออกมาจากขอบ Modal */
+}
+
+.log-history-item {
+  position: relative;
+  padding-left: 5px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  color: #666;
+  display: block;
+  text-transform: capitalize;
+}
+
+.log-history-item::before {
+  content: "";
+  position: absolute;
+  left: -26px; /* ปรับให้ทับเส้น Timeline พอดี */
+  top: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  background-color: #adb5bd; /* สีเทามาตรฐานสำหรับสถานะทั่วไป */
+  z-index: 1;
+}
+
+/* --- กำหนดสีตามสถานะ --- */
+
+/* สีเขียว สำหรับการอนุมัติ (Approved) */
+.log-history-item.approve::before {
+  background-color: #28a745;
+}
+
+.log-history-item.approve:first-child::before {
+  background-color: #28a745;
+  box-shadow: 0 0 0 3px rgba(42, 252, 35, 0.2);
+}
+
+/* สีฟ้า สำหรับการส่งเรื่อง (Submit) */
+.log-history-item.submit::before {
+  background-color: #2379fc;
+}
+
+.log-history-item.submit:first-child::before {
+  background-color: #2379fc;
+  box-shadow: 0 0 0 3px rgba(35, 147, 252, 0.2);
+}
+
+/* สีแดง สำหรับการปฏิเสธ (Cancel) */
+.log-history-item.cancel::before {
+  background-color: #dc3545;
+}
+
+.log-history-item.cancel:first-child::before {
+  background-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(252, 35, 35, 0.2);
+}
+
+/* สีเหลือง/ส้ม สำหรับการส่งกลับไปแก้ไข (Waiting) */
+.log-history-item.draft::before {
+  background-color: #727271;
+}
+
+.log-history-item.draft:first-child::before {
+  background-color: #727271;
+  box-shadow: 0 0 0 3px rgba(165, 164, 164, 0.2);
+}
+
+/* Overlay Background */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Loader Circle */
+.loader {
+  width: 60px;
+  height: 60px;
+  border: 5px solid #e3f2fd;        /* ฟ้าอ่อน */
+  border-top: 5px solid #2196f3;    /* ฟ้า primary */
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.react-datepicker-popper {
+  z-index: 9999 !important;
+}
+
+.change-password-link {
+   background: none;
+    border: none;
+    padding: 0;
+    color: #155dfc;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+

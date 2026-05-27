@@ -1,0 +1,17 @@
+{
+  "required": "This field is required",
+  "invalidDate": "Invalid date",
+  "dateRange": "End date must be after start date",
+  "maxLength": "Must be less than {{count}} characters",
+  "fileSize": "File size must not exceed {{size}} MB",
+  "fileType": "Unsupported file type",
+  "required-field": "{{field}} is required",
+  "date-range-invalid": "Date range is invalid",
+  "invalid-time":"Invalid time: Outside business hours",
+  "weekend-day":"Please select a weekday.",
+  "must-greater-than-field":"Must be greater than {{field}}",
+  "must-less-than-field":"Must be less than {{field}}",
+  "field-at-lease-one":"{{field}} at lease 1 item",
+  "field-not-match":"{{field}} do not match",
+  "leave-in-advance": "7-day advance notice required (Earliest: {{date}})"
+}

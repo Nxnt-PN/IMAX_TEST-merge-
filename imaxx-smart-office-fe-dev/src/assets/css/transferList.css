@@ -1,0 +1,45 @@
+.transfer-list {
+  display: flex;
+  gap: 16px;
+}
+
+.transfer-list-left,
+.transfer-list-right {
+  flex: 1;
+  padding: 16px;
+  height: 230px;
+  margin: 10px 0;
+  width: 260px;
+}
+
+.transfer-list-left .card-body .transfer-list-items,
+.transfer-list-right .card-body .transfer-list-items {
+  overflow-y: auto;
+  overflow-x:hidden;
+  height: 130px;
+  width:165px;
+}
+
+.transfer-list-actions {
+  display: flex;
+  flex-direction: column;   /* แนวนอน */
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.transfer-list-body {
+  max-height: 250px;        /* ปรับได้ */
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.transfer-list-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.transfer-list-body::-webkit-scrollbar-thumb {
+  background: #cbd5f5;
+  border-radius: 4px;
+}
+

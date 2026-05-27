@@ -1,0 +1,2242 @@
+basePath: /api
+definitions:
+  controller.EditPassword:
+    properties:
+      password:
+        type: string
+    required:
+    - password
+    type: object
+  enums.ActionRequest:
+    enum:
+    - save
+    - submit
+    type: string
+    x-enum-varnames:
+    - ActionSave
+    - ActionSubmit
+  enums.LeaveType:
+    enum:
+    - absence
+    - annual
+    - sick
+    - other
+    type: string
+    x-enum-varnames:
+    - LeaveAbsence
+    - LeaveAnnual
+    - LeaveSick
+    - LeaveOther
+  request.AuthenticateRequest:
+    properties:
+      password:
+        maxLength: 255
+        minLength: 1
+        type: string
+      username:
+        maxLength: 255
+        minLength: 1
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  request.CreateLeaveQuotaDetailRequest:
+    properties:
+      absence_quota:
+        type: integer
+      annual_quota:
+        type: integer
+      other_quota:
+        type: integer
+      sick_quota:
+        type: integer
+      status:
+        maximum: 1
+        minimum: 0
+        type: integer
+      work_year_max:
+        type: number
+      work_year_min:
+        type: number
+    required:
+    - absence_quota
+    - annual_quota
+    - other_quota
+    - sick_quota
+    - status
+    - work_year_max
+    - work_year_min
+    type: object
+  request.CreateLeaveQuotaRequest:
+    properties:
+      leave_quota_details:
+        items:
+          $ref: '#/definitions/request.CreateLeaveQuotaDetailRequest'
+        type: array
+      status:
+        maximum: 1
+        minimum: 0
+        type: integer
+      year:
+        maximum: 3000
+        minimum: 2000
+        type: integer
+    required:
+    - leave_quota_details
+    - status
+    - year
+    type: object
+  request.CreateRoleRequest:
+    properties:
+      child_role_ids:
+        items:
+          type: string
+        type: array
+      name:
+        maxLength: 255
+        minLength: 1
+        type: string
+      permission_ids:
+        items:
+          type: string
+        type: array
+      status:
+        type: integer
+    required:
+    - child_role_ids
+    - name
+    - permission_ids
+    - status
+    type: object
+  request.CreateUserRequest:
+    properties:
+      email:
+        maxLength: 255
+        minLength: 1
+        type: string
+      employed_at:
+        type: string
+      first_name:
+        maxLength: 255
+        minLength: 1
+        type: string
+      last_name:
+        maxLength: 255
+        minLength: 1
+        type: string
+      password:
+        maxLength: 255
+        minLength: 1
+        type: string
+      role_ids:
+        items:
+          type: string
+        type: array
+      status:
+        type: integer
+      username:
+        maxLength: 255
+        minLength: 1
+        type: string
+    required:
+    - email
+    - employed_at
+    - first_name
+    - last_name
+    - password
+    - role_ids
+    - status
+    - username
+    type: object
+  request.CreateWorkflowDetailRequest:
+    properties:
+      is_final:
+        maximum: 1
+        minimum: 0
+        type: integer
+      name:
+        maxLength: 255
+        minLength: 1
+        type: string
+      role_id:
+        type: string
+      seq:
+        type: integer
+      status:
+        maximum: 1
+        minimum: 0
+        type: integer
+    required:
+    - is_final
+    - name
+    - role_id
+    - seq
+    - status
+    type: object
+  request.CreateWorkflowRequest:
+    properties:
+      name:
+        maxLength: 255
+        minLength: 1
+        type: string
+      status:
+        maximum: 1
+        minimum: 0
+        type: integer
+      workflow_details:
+        items:
+          $ref: '#/definitions/request.CreateWorkflowDetailRequest'
+        type: array
+    required:
+    - name
+    - status
+    - workflow_details
+    type: object
+  request.LeaveFormRequest:
+    properties:
+      action:
+        allOf:
+        - $ref: '#/definitions/enums.ActionRequest'
+        enum:
+        - save
+        - submit
+      end_date:
+        type: string
+      leave_type:
+        $ref: '#/definitions/enums.LeaveType'
+      reason:
+        type: string
+      start_date:
+        type: string
+      user_id:
+        type: string
+    required:
+    - action
+    - end_date
+    - leave_type
+    - reason
+    - start_date
+    type: object
+  request.ReviewRequest:
+    properties:
+      remark:
+        type: string
+    type: object
+  request.UpdateLeaveQuotaDetailRequest:
+    properties:
+      absence_quota:
+        type: integer
+      annual_quota:
+        type: integer
+      other_quota:
+        type: integer
+      sick_quota:
+        type: integer
+      status:
+        maximum: 1
+        minimum: 0
+        type: integer
+      work_year_max:
+        type: number
+      work_year_min:
+        type: number
+    required:
+    - absence_quota
+    - annual_quota
+    - other_quota
+    - sick_quota
+    - status
+    - work_year_max
+    - work_year_min
+    type: object
+  request.UpdateLeaveQuotaRequest:
+    properties:
+      leave_quota_details:
+        items:
+          $ref: '#/definitions/request.UpdateLeaveQuotaDetailRequest'
+        type: array
+      status:
+        maximum: 1
+        minimum: 0
+        type: integer
+      year:
+        maximum: 3000
+        minimum: 2000
+        type: integer
+    required:
+    - leave_quota_details
+    - status
+    - year
+    type: object
+  request.UpdateRoleRequest:
+    properties:
+      child_role_ids:
+        items:
+          type: string
+        type: array
+      name:
+        maxLength: 255
+        minLength: 1
+        type: string
+      permission_ids:
+        items:
+          type: string
+        type: array
+      status:
+        type: integer
+    required:
+    - child_role_ids
+    - name
+    - permission_ids
+    - status
+    type: object
+  request.UpdateSystemRequest:
+    properties:
+      workflow_id:
+        type: string
+    required:
+    - workflow_id
+    type: object
+  request.UpdateUserRequest:
+    properties:
+      email:
+        maxLength: 255
+        minLength: 1
+        type: string
+      employed_at:
+        type: string
+      first_name:
+        maxLength: 255
+        minLength: 1
+        type: string
+      last_name:
+        maxLength: 255
+        minLength: 1
+        type: string
+      password:
+        type: string
+      role_ids:
+        items:
+          type: string
+        type: array
+      status:
+        type: integer
+      username:
+        type: string
+    required:
+    - email
+    - employed_at
+    - first_name
+    - last_name
+    - role_ids
+    - status
+    type: object
+  request.UpdateWorkflowDetailRequest:
+    properties:
+      is_final:
+        maximum: 1
+        minimum: 0
+        type: integer
+      name:
+        maxLength: 255
+        minLength: 1
+        type: string
+      role_id:
+        type: string
+      seq:
+        type: integer
+      status:
+        maximum: 1
+        minimum: 0
+        type: integer
+    required:
+    - is_final
+    - name
+    - role_id
+    - seq
+    - status
+    type: object
+  request.UpdateWorkflowRequest:
+    properties:
+      name:
+        maxLength: 255
+        minLength: 1
+        type: string
+      status:
+        maximum: 1
+        minimum: 0
+        type: integer
+      workflow_details:
+        items:
+          $ref: '#/definitions/request.UpdateWorkflowDetailRequest'
+        type: array
+    required:
+    - name
+    - status
+    - workflow_details
+    type: object
+  response.DefaultResponse:
+    properties:
+      data: {}
+      message:
+        type: string
+      status:
+        type: string
+    type: object
+host: localhost:5000
+info:
+  contact: {}
+  description: iMaxx Office API with Swagger
+  title: iMaxx Office API
+  version: "1.0"
+paths:
+  /dashboards/calendar/children:
+    get:
+      consumes:
+      - application/json
+      description: get my children leave date to put on calendar
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: Get My Children Calendar
+      tags:
+      - dashboard
+  /dashboards/calendar/me:
+    get:
+      consumes:
+      - application/json
+      description: get my leave date to put on calendar
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: Get My Calendar
+      tags:
+      - dashboard
+  /dashboards/grouping-count:
+    get:
+      consumes:
+      - application/json
+      description: Grouping Count leave day by leavetype and quota
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: GroupingCount day leave
+      tags:
+      - dashboard
+  /leave-forms:
+    get:
+      consumes:
+      - application/json
+      description: find all my leave form
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      - description: keyword search(state_detail)
+        in: query
+        name: keyword
+        type: string
+      - description: Leave Type
+        enum:
+        - absence
+        - annual
+        - sick
+        in: query
+        name: leave_type
+        type: string
+      - description: Year filter (AD)
+        in: query
+        name: year
+        type: integer
+      - description: State (1=Draft, 2=Waiting, 3=Complete, 4=Rejected)
+        enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        in: query
+        name: state
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindAll leaveForm
+      tags:
+      - leaveForms
+    post:
+      consumes:
+      - application/json
+      description: create leave form
+      parameters:
+      - description: create leave form payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.LeaveFormRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: CreateLeaveForm leaveform
+      tags:
+      - leaveForms
+  /leave-forms/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete LeaveForm (only state Draft)
+      parameters:
+      - description: LeaveForm ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: DeleteLeaveForm leaveForm
+      tags:
+      - leaveForms
+    get:
+      consumes:
+      - application/json
+      description: find by id leaveForm
+      parameters:
+      - description: LeaveForm ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindById leaveForm
+      tags:
+      - leaveForms
+    put:
+      consumes:
+      - application/json
+      description: update leaveForm save / submit
+      parameters:
+      - description: update leaveForm payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.LeaveFormRequest'
+      - description: LeaveForm ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: Update LeaveForm leaveForm
+      tags:
+      - leaveForms
+  /leave-forms/cancel/{id}:
+    put:
+      consumes:
+      - application/json
+      description: cancel LeaveForm
+      parameters:
+      - description: LeaveForm ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: cancel leave form and put remark
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReviewRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: CancelLeaveForm leaveForm
+      tags:
+      - leaveForms
+  /leave-forms/export:
+    get:
+      consumes:
+      - application/json
+      description: export to excel
+      parameters:
+      - description: name search
+        in: query
+        name: name
+        type: string
+      - description: keyword search
+        in: query
+        name: keyword
+        type: string
+      - description: Leave Type
+        enum:
+        - absence
+        - annual
+        - sick
+        in: query
+        name: leave_type
+        type: string
+      - description: date filter (start)
+        format: date
+        in: query
+        name: start_date
+        type: string
+      - description: date filter (end)
+        format: date
+        in: query
+        name: end_date
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: Export To Excel leaveform
+      tags:
+      - leaveForms
+  /leave-forms/me:
+    get:
+      consumes:
+      - application/json
+      description: find all my leave form
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      - description: keyword search(state_detail)
+        in: query
+        name: keyword
+        type: string
+      - description: Leave Type
+        enum:
+        - absence
+        - annual
+        - sick
+        in: query
+        name: leave_type
+        type: string
+      - description: Year filter (AD)
+        in: query
+        name: year
+        type: integer
+      - description: State (1=Draft, 2=Waiting, 3=Complete, 4=Rejected)
+        enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        in: query
+        name: state
+        type: integer
+      - description: leave form uuids
+        in: query
+        name: ids
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindMyLeaveAll leaveForm
+      tags:
+      - leaveForms
+  /leave-forms/report:
+    get:
+      consumes:
+      - application/json
+      description: find all Report
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      - description: name search
+        in: query
+        name: name
+        type: string
+      - description: keyword search
+        in: query
+        name: keyword
+        type: string
+      - description: Leave Type
+        enum:
+        - absence
+        - annual
+        - sick
+        in: query
+        name: leave_type
+        type: string
+      - description: date filter (start)
+        format: date
+        in: query
+        name: start_date
+        type: string
+      - description: date filter (end)
+        format: date
+        in: query
+        name: end_date
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindReportAll leaveForm
+      tags:
+      - leaveForms
+  /leave-forms/review/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Review to approve / reject leaveForm
+      parameters:
+      - description: LeaveForm ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: review the leaveform approve and remark
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReviewRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: Review LeaveForm leaveForm
+      tags:
+      - leaveForms
+  /leave-forms/task:
+    get:
+      consumes:
+      - application/json
+      description: find all my task form
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      - description: keyword search
+        in: query
+        name: keyword
+        type: string
+      - description: Leave Type
+        enum:
+        - absence
+        - annual
+        - sick
+        in: query
+        name: leave_type
+        type: string
+      - description: Year filter (AD)
+        in: query
+        name: year
+        type: integer
+      - description: State (1=Draft, 2=Waiting, 3=Complete, 4=Rejected)
+        enum:
+        - 1
+        - 2
+        - 3
+        - 4
+        in: query
+        name: state
+        type: integer
+      - description: leave form task uuids
+        in: query
+        name: ids
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindMyTaskAll leaveForm
+      tags:
+      - leaveForms
+  /leave-forms/upload/{id}:
+    patch:
+      consumes:
+      - multipart/form-data
+      description: upload file leave form
+      parameters:
+      - description: Leave Form ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: upload leave form file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: UploadFile leaveform
+      tags:
+      - leaveForms
+  /leave-quotas:
+    get:
+      consumes:
+      - application/json
+      description: find all leaveQuota
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      - description: keyword search
+        in: query
+        name: keyword
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindAllLeaveQuota leaveQuota
+      tags:
+      - leaveQuotas
+    post:
+      consumes:
+      - application/json
+      description: create leaveQuota
+      parameters:
+      - description: create leaveQuota payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateLeaveQuotaRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: CreateLeaveQuota leaveQuota
+      tags:
+      - leaveQuotas
+  /leave-quotas/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete leaveQuota
+      parameters:
+      - description: LeaveQuota ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: DeleteLeaveQuota leaveQuota
+      tags:
+      - leaveQuotas
+    get:
+      consumes:
+      - application/json
+      description: find by id leaveQuota
+      parameters:
+      - description: LeaveQuota ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindById leaveQuota
+      tags:
+      - leaveQuotas
+    put:
+      consumes:
+      - application/json
+      description: update leaveQuota
+      parameters:
+      - description: update leaveQuota payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateLeaveQuotaRequest'
+      - description: LeaveQuota ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: UpdateLeaveQuota leaveQuota
+      tags:
+      - leaveQuotas
+  /leave-reports/staff:
+    get:
+      consumes:
+      - application/json
+      description: display staff leave report summary
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 20
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      - description: keyword search
+        in: query
+        name: keyword
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: Get all staff leave report summary
+      tags:
+      - leaveReports
+  /leave-reports/staff/export:
+    get:
+      consumes:
+      - application/json
+      description: export staff report to excel
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 1000
+        description: limit per page number(default 1000)
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      - description: keyword search
+        in: query
+        name: keyword
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: Export staff report to excel
+      tags:
+      - leaveReports
+  /menu-status/my:
+    get:
+      consumes:
+      - application/json
+      description: get user own menu status
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: get my menu status
+      tags:
+      - menustatuses
+  /notifications:
+    get:
+      consumes:
+      - application/json
+      description: find all unread user notification
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindAll notification
+      tags:
+      - notifications
+  /notifications/set-read/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Set read status of notification by id
+      parameters:
+      - description: Notification ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: SetReadById notification
+      tags:
+      - notifications
+  /notifications/set-read/all:
+    patch:
+      consumes:
+      - application/json
+      description: Set read status of notification to all noti
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: Set Read All notification
+      tags:
+      - notifications
+  /notifications/unread:
+    get:
+      consumes:
+      - application/json
+      description: find all unread user notification
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindUnreadAll notification
+      tags:
+      - notifications
+  /permissions:
+    get:
+      consumes:
+      - application/json
+      description: find all permission
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      - description: keyword search
+        in: query
+        name: keyword
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindAllPermission permission
+      tags:
+      - permissions
+  /roles:
+    get:
+      consumes:
+      - application/json
+      description: find all role
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      - description: keyword search
+        in: query
+        name: keyword
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindAllRole role
+      tags:
+      - roles
+    post:
+      consumes:
+      - application/json
+      description: create role
+      parameters:
+      - description: create role payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateRoleRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: CreateRole role
+      tags:
+      - roles
+  /roles/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete role
+      parameters:
+      - description: Role ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: DeleteRole role
+      tags:
+      - roles
+    get:
+      consumes:
+      - application/json
+      description: find by id role
+      parameters:
+      - description: Role ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindById role
+      tags:
+      - roles
+    put:
+      consumes:
+      - application/json
+      description: update role
+      parameters:
+      - description: update role payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateRoleRequest'
+      - description: Role ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: UpdateRole role
+      tags:
+      - roles
+  /roles/active:
+    get:
+      consumes:
+      - application/json
+      description: find all active role
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      - description: keyword search
+        in: query
+        name: keyword
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindActiveAllRole role
+      tags:
+      - roles
+  /systems:
+    get:
+      consumes:
+      - application/json
+      description: find all system
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      - description: keyword search
+        in: query
+        name: keyword
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindAllSystem system
+      tags:
+      - systems
+  /systems/{id}:
+    get:
+      consumes:
+      - application/json
+      description: find by id system
+      parameters:
+      - description: System ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindById system
+      tags:
+      - systems
+    put:
+      consumes:
+      - application/json
+      description: update system
+      parameters:
+      - description: update system payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateSystemRequest'
+      - description: Role ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: UpdateSystem system
+      tags:
+      - systems
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: find all user
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      - description: keyword search
+        in: query
+        name: keyword
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindAllUser user
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: create user
+      parameters:
+      - description: create user payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: CreateUser user
+      tags:
+      - users
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete user
+      parameters:
+      - description: User ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: DeleteUser user
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: find by id user
+      parameters:
+      - description: User ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindById user
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: update user
+      parameters:
+      - description: update user payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateUserRequest'
+      - description: User ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: UpdateUser user
+      tags:
+      - users
+  /users/active:
+    get:
+      consumes:
+      - application/json
+      description: find active all user
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      - description: keyword search
+        in: query
+        name: keyword
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindActiveAllUser user
+      tags:
+      - users
+  /users/authenticate:
+    post:
+      consumes:
+      - application/json
+      description: authenticate
+      parameters:
+      - description: authenticate payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.AuthenticateRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      summary: Authenticate user
+      tags:
+      - users
+  /users/me:
+    get:
+      consumes:
+      - application/json
+      description: Get current user profile information
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: Get my profile users
+      tags:
+      - users
+  /users/me/password:
+    patch:
+      consumes:
+      - application/json
+      description: update password by user
+      parameters:
+      - description: update user password
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/controller.EditPassword'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: Update user password
+      tags:
+      - users
+  /users/me/upload-profile:
+    patch:
+      consumes:
+      - multipart/form-data
+      description: upload user avatar file
+      parameters:
+      - description: upload avatar file
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: Upload image for user avatar
+      tags:
+      - users
+  /users/refresh-token:
+    post:
+      consumes:
+      - application/json
+      description: refresh token
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: RefreshToken user
+      tags:
+      - users
+  /workflows:
+    get:
+      consumes:
+      - application/json
+      description: find all workflow
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      - description: keyword search
+        in: query
+        name: keyword
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindAllWorkflow workflow
+      tags:
+      - workflows
+    post:
+      consumes:
+      - application/json
+      description: create workflow
+      parameters:
+      - description: create workflow payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateWorkflowRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: CreateWorkflow workflow
+      tags:
+      - workflows
+  /workflows/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: delete workflow
+      parameters:
+      - description: Workflow ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: DeleteWorkflow workflow
+      tags:
+      - workflows
+    get:
+      consumes:
+      - application/json
+      description: find by id workflow
+      parameters:
+      - description: Workflow ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindById workflow
+      tags:
+      - workflows
+    put:
+      consumes:
+      - application/json
+      description: update workflow
+      parameters:
+      - description: update workflow payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/request.UpdateWorkflowRequest'
+      - description: Workflow ID (uuid)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: UpdateWorkflow workflow
+      tags:
+      - workflows
+  /workflows/active:
+    get:
+      consumes:
+      - application/json
+      description: find all active workflow
+      parameters:
+      - default: 1
+        description: page number
+        in: query
+        name: page
+        type: integer
+      - default: 10
+        description: limit per page number
+        in: query
+        name: limit
+        type: integer
+      - default: created_at desc
+        description: sort sql string ex. created_at desc
+        in: query
+        name: sort
+        type: string
+      - description: keyword search
+        in: query
+        name: keyword
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.DefaultResponse'
+      security:
+      - BearerAuth: []
+      summary: FindActiveAllWorkflow workflow
+      tags:
+      - workflows
+securityDefinitions:
+  BearerAuth:
+    description: Type 'Bearer ' followed by a space and then your token.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

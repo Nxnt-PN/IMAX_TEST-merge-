@@ -1,0 +1,15 @@
+FROM golang:1.25-alpine
+
+WORKDIR /app
+
+RUN apk add --no-cache git
+ENV TZ=Asia/Bangkok
+
+# install air
+RUN go install github.com/air-verse/air@latest
+
+ENV PATH="/go/bin:${PATH}"
+
+EXPOSE 5000
+
+CMD ["air","-c",".air.mount.toml"]

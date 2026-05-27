@@ -1,0 +1,30 @@
+# Git
+.git
+.gitignore
+
+# Logs
+*.log
+
+# Env
+.env
+.env.*
+
+# Temp
+tmp
+temp
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.yml
+
+# Test cache
+*.test
+
+/.vscode

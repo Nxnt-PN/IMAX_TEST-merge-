@@ -1,0 +1,19 @@
+.login-page {
+  background: linear-gradient(135deg, #f8f9fa, #eef2ff);
+}
+
+.card {
+  transition: box-shadow .2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 .15rem rgba(13,110,253,.25);
+}
+
+.fs-14 {
+  font-size: 14px;
+}

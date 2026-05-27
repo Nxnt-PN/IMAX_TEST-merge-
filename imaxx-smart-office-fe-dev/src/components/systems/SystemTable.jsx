@@ -1,0 +1,198 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMagnifyingGlass,
+  faPen,
+  faTrash,
+  faXmark,
+} from "@fortawesome/free-solid-svg-icons";
+import DataTable from "@/components/table/DataTable";
+import Pagination from "@/components/table/Pagination";
+import Can from "@/components/Can";
+import { useTranslation } from "react-i18next";
+import PropTypes from "prop-types";
+
+SystemTable.propTypes = {
+  onOpen: PropTypes.func,
+  onDelete: PropTypes.func,
+  authPermissions: PropTypes.array,
+  PERMISSION: PropTypes.object,
+  tableData: PropTypes.array,
+  total: PropTypes.number,
+  totalPages: PropTypes.number,
+  loading: PropTypes.bool,
+  query: PropTypes.object,
+  onQueryChange: PropTypes.func,
+  filters: PropTypes.object,
+  onFiltersChange: PropTypes.func,
+};
+
+
+export default function SystemTable({
+  onOpen,
+  onDelete,
+  authPermissions,
+  PERMISSION,
+  tableData,
+  total,
+  totalPages,
+  loading,
+  query,
+  onQueryChange,
+  filters,
+  onFiltersChange,
+}) {
+  const { t } = useTranslation();
+  const pageLimitList = [10, 20, 30, 40, 50];
+
+  // column definitions
+  const columns = [
+    {
+      header: "#",
+      accessorKey: "no",
+      cell: ({ row }) => (query.page - 1) * query.limit + row.index + 1,
+    },
+    {
+      header: t("common:form.system-name"),
+      accessorKey: "system",
+      cell: ({ row }) => {
+        return <div className="year">{row.original.name}</div>;
+      },
+    },
+    {
+      header:  t("common:form.status"),
+      accessorKey: "status",
+      cell: ({ row }) => {
+        const classStyle = row.original.status
+          ? "badge active"
+          : "badge inactive";
+        return <span className={classStyle}>{t(`common:form.${row.original.status ? "active" : "inactive"}`)}</span>;
+      },
+    },
+    {
+      header:  t("common:form.action"),
+      accessorKey: "action",
+      cell: ({ row }) => (
+        <>
+          <Can
+            required={[PERMISSION.EDIT_SYSTEM]}
+            permissions={authPermissions}
+          >
+            <button
+              className="btn btn-sm btn-outline-primary me-2 "
+              onClick={() => onOpen(row.original)}
+            >
+              <FontAwesomeIcon icon={faPen} />
+            </button>
+          </Can>
+          <Can
+            required={[PERMISSION.DELETE_SYSTEM]}
+            permissions={authPermissions}
+          >
+            <button
+              className="btn btn-sm btn-outline-danger my-2"
+              onClick={() => onDelete(row.original)}
+            >
+              <FontAwesomeIcon icon={faTrash} />
+            </button>
+          </Can>
+        </>
+      ),
+    },
+  ];
+  // function
+  // function
+  const onSearch = () => {
+    onQueryChange({
+      ...query,
+      keyword: filters.keyword,
+      page: 1,
+    });
+  };
+
+  const onPageChange = (p) => {
+    onQueryChange(prev => ({
+      ...prev,
+      page: p,
+    }));
+  };
+
+  const onLimitChange = (l) => {
+    onQueryChange(prev => ({
+      ...prev,
+      limit: l,
+      page: 1,
+    }));
+  };
+
+  const clearSearch = () => {
+    onFiltersChange({
+      ...filters,
+      keyword: "",
+    });
+
+    onQueryChange({
+      ...query,
+      page: 1,
+      keyword: "",
+      limit: 10,
+    });
+  };
+
+  return (
+    <div>
+      <div className="filters mb-4">
+        <div className="last-row-filter">
+          <div className="">
+            <label htmlFor="keyword" className="form-label">
+              {t("common:form.keyword")}
+            </label>
+            <input
+              id="keyword"
+              className="form-control keyword"
+              placeholder={`${t("common:action.search")} ${t("common:form.system-name").toLowerCase()}...`}
+              type="text"
+              value={filters.keyword}
+              onChange={(e) =>
+                onFiltersChange((prev) => ({ ...prev, keyword: e.target.value }))
+              }
+              onKeyDown={(e) => e.key === "Enter" && onSearch()}
+            />
+          </div>
+          <div className="">
+            <button
+              type="button"
+              className="btn-search-cancel btn"
+              onClick={() => clearSearch()}
+            >
+              <FontAwesomeIcon icon={faXmark} className="me-2" />
+              {t("common:button.clear")}
+            </button>
+            <button
+              type="button"
+              className="btn btn-search"
+              onClick={() => onSearch()}
+            >
+              <FontAwesomeIcon icon={faMagnifyingGlass} className="me-2" />
+              {t("common:button.search")}
+            </button>
+          </div>
+        </div>
+      </div>
+      <DataTable data={tableData} columns={columns} loading={loading} />
+      <Pagination
+        page={query.page}
+        limit={query.limit}
+        total={total}
+        totalPages={totalPages}
+        onPageChange={onPageChange}
+        onLimitChange={(l) => {
+          onLimitChange(l);
+          onPageChange(1);
+        }}
+        setLimit={onLimitChange}
+        setPage={onPageChange}
+        pageLimitList={pageLimitList}
+      />
+    </div>
+  );
+}

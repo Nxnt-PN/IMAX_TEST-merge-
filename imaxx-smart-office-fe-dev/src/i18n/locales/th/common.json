@@ -1,0 +1,282 @@
+{
+  "app": {
+    "title": "iMAXX Smart Office"
+  },
+
+  "button": {
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "export": "ส่งออก",
+    "search": "ค้นหา",
+    "approve": "อนุมัติ",
+    "reject": "ปฏิเสธ",
+    "submit": "ส่งคำขอ",
+    "confirm": "ยืนยัน",
+    "ok": "ตกลง",
+    "clear": "ล้างค่า",
+    "create": "สร้าง",
+    "delete": "ลบ",
+    "notification": "ทำเครื่องหมายว่าอ่านแล้วทั้งหมด",
+    "close": "ปิด"
+  },
+
+  "action": {
+    "save": "บันทึก",
+    "cancel": "ยกเลิก",
+    "export": "ส่งออก",
+    "search": "ค้นหา",
+    "approve": "อนุมัติ",
+    "reject": "ปฏิเสธ",
+    "submit": "ส่งคำขอ",
+    "confirm": "ยืนยัน",
+    "ok": "ตกลง",
+    "clear": "ล้างค่า",
+    "delete": "ลบ"
+  },
+
+  "form": {
+    "date": "วันที่",
+    "from": "จาก",
+    "to": "ถึง",
+    "type": "ประเภทการลา",
+    "reason": "เหตุผลในการลา",
+    "attachment": "ไฟล์แนบ",
+    "remark": "หมายเหตุ",
+    "keyword": "คำค้นหา",
+    "name": "ชื่อ",
+    "status": "สถานะ",
+    "leave-period": "ช่วงวันที่ลา",
+    "days": "วัน",
+    "action": "การดำเนินการ",
+    "create": "สร้าง {{field}}",
+    "add": "เพิ่ม {{field}}",
+    "new": "{{field}} ใหม่",
+    "edit": "แก้ไข {{field}}",
+    "first-name": "ชื่อ",
+    "last-name": "นามสกุล",
+    "start-date": "วันที่เริ่มต้น",
+    "end-date": "วันที่สิ้นสุด",
+    "role": "บทบาท",
+    "email": "อีเมล",
+    "username": "ชื่อผู้ใช้",
+    "user": "ผู้ใช้",
+    "change-password": "เปลี่ยนรหัสผ่าน",
+    "employed-date": "วันที่เริ่มงาน",
+    "available": "ที่มีอยู่",
+    "selected": "ที่เลือก",
+    "active": "ใช้งาน",
+    "inactive": "ไม่ใช้งาน",
+    "permission": "สิทธิ์",
+    "file-name": "ชื่อไฟล์",
+    "password": "รหัสผ่าน",
+    "confirm-password": "ยืนยันรหัสผ่าน",
+    "year": "ปี",
+    "month": "เดือน",
+    "workflow": "เวิร์กโฟลว์",
+    "workflow-name": "ชื่อเวิร์กโฟลว์",
+    "system": "ระบบ",
+    "system-name": "ชื่อระบบ",
+    "system-key": "คีย์ระบบ",
+    "workflow-detail": "รายละเอียดเวิร์กโฟลว์",
+    "detail": "รายละเอียด",
+    "workflow-detail-name": "ชื่อรายละเอียดเวิร์กโฟลว์",
+    "final": "ขั้นตอนสุดท้าย",
+    "leave-quota": "โควตาการลา",
+    "child-role": "ระดับย่อย",
+    "quota-detail": "รายละเอียดโควตา",
+    "work-experience": "อายุงาน",
+    "absence": "ลากิจ",
+    "annual": "ลาพักร้อน",
+    "sick": "ลาป่วย",
+    "other": "ลาอื่น ๆ",
+    "day-per-year": "วัน / ปี",
+    "day": "วัน",
+    "location": "สถานที่",
+    "state":"State",
+    "year-abbreviate":"ปี",
+    "month-abbreviate":"ด",
+    "day-abbreviate":"วัน"
+  },
+
+  "label": {
+    "view-all-notification": "ดูการแจ้งเตือนทั้งหมด",
+    "login": "เข้าสู่ระบบ",
+    "web-quote-1": "จัดการผู้ใช้ บทบาท และสิทธิ์",
+    "web-quote-2": "ได้อย่างง่ายดายและมั่นใจ",
+    "row-per-page": "จำนวนรายการต่อหน้า",
+    "showing": "แสดง",
+    "of": "จาก",
+    "attachment-support": "รองรับไฟล์รูปภาพ, PDF และไฟล์ Office ขนาดไม่เกิน 5 MB",
+    "file-maximum": "สูงสุด {{maximumFile}} ไฟล์",
+    "empty-text": "ไม่มีข้อมูล",
+    "leave-request": "คำขอลา",
+    "confirm": "ยืนยันการ{{action}}",
+    "confirm-subtitle": "กรุณาตรวจสอบข้อมูลให้ครบถ้วนก่อนดำเนินการ",
+    "select-field": "เลือก{{field}}",
+    "action-by": "{{action}} โดย {{name}} เมื่อ {{dateTime}}",
+    "at": "เมื่อ",
+    "history": "ประวัติการดำเนินการ",
+    "change-password-success":"เปลี่ยนรหัสผ่านเรียบร้อยแล้ว"
+  },
+
+  "error": {
+    "unauthorized": "ไม่มีสิทธิ์เข้าถึง",
+    "unauthorized-subtitle": "เซสชันของคุณหมดอายุ กรุณาเข้าสู่ระบบใหม่อีกครั้ง",
+    "server-unavailable": "เซิร์ฟเวอร์ปิดปรับปรุงหรือไม่สามารถใช้งานได้ชั่วคราว",
+    "internal-server": "เกิดข้อผิดพลาดภายในระบบ (500)",
+    "no-internet": "กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ตของคุณ"
+  },
+
+  "placeholder": {
+    "confirm-remark": "กรอกหมายเหตุเพิ่มเติม (ถ้ามี)"
+  },
+
+  "leave-type": {
+    "all": "ทุกประเภทการลา",
+    "absence": "ลากิจ",
+    "annual": "ลาพักร้อน",
+    "sick": "ลาป่วย",
+    "other": "ลาอื่น ๆ"
+  },
+
+  "menu": {
+    "dashboard": "แดชบอร์ด",
+    "notification": "การแจ้งเตือน",
+    "my-leave": "การลาของฉัน",
+    "my-task": "งานของฉัน",
+    "report": "รายงาน",
+    "summary-report": "รายงานสรุป",
+    "staff-report": "รายงานพนักงาน",
+    "user-management": "จัดการผู้ใช้",
+    "user": "ผู้ใช้",
+    "role": "บทบาท",
+    "setting": "ตั้งค่า",
+    "leave-quota": "โควตาการลา",
+    "workflow": "เวิร์กโฟลว์",
+    "system": "ระบบ",
+    "my-profile": "โปรไฟล์ของฉัน",
+    "logout": "ออกจากระบบ"
+  },
+
+  "titles": {
+    "dashboard": {
+      "name": "แดชบอร์ด",
+      "subtitle": "ภาพรวมแนวโน้มการลา ยอดคงเหลือ และความพร้อมของทีม"
+    },
+    "notification": {
+      "name": "การแจ้งเตือน",
+      "subtitle": "ติดตามสถานะคำขอลาและการอนุมัติของคุณ"
+    },
+    "my-leave": {
+      "name": "การลาของฉัน",
+      "subtitle": "ส่งคำขอลาใหม่และดูประวัติการลาของคุณ"
+    },
+    "my-task": {
+      "name": "งานของฉัน",
+      "subtitle": "คำขอลาที่รอการอนุมัติและงานที่ต้องดำเนินการ"
+    },
+    "staff-report": {
+      "name": "รายงานพนักงาน",
+      "subtitle": "วิเคราะห์ข้อมูลการลาและสรุปการเข้าทำงาน"
+    },
+    "summary-report": {
+      "name": "รายงานสรุป",
+      "subtitle": "วิเคราะห์ข้อมูลการลาและสรุปการเข้าทำงาน"
+    },
+    "user-management": {
+      "name": "จัดการผู้ใช้",
+      "subtitle": "จัดการข้อมูลพนักงานและโครงสร้างองค์กร"
+    },
+    "user": {
+      "name": "ผู้ใช้",
+      "subtitle": "ดูและแก้ไขข้อมูลพนักงานและแผนก"
+    },
+    "role": {
+      "name": "บทบาท",
+      "subtitle": "กำหนดสิทธิ์การอนุมัติและสิทธิ์ผู้ดูแลระบบ"
+    },
+    "setting": {
+      "name": "ตั้งค่า",
+      "subtitle": "กำหนดประเภทการลา วันหยุด และเวลาทำงาน"
+    },
+    "leave-quota": {
+      "name": "โควตาการลา",
+      "subtitle": "จัดการสิทธิ์การลาและการรีเซ็ตยอดประจำปี"
+    },
+    "workflow": {
+      "name": "เวิร์กโฟลว์",
+      "subtitle": "ตั้งค่าการอนุมัติหลายระดับสำหรับคำขอลา"
+    },
+    "system": {
+      "name": "ระบบ",
+      "subtitle": "ตรวจสอบบันทึกระบบและการตั้งค่าการลาทั่วไป"
+    },
+    "my-profile": {
+      "name": "โปรไฟล์ของฉัน",
+      "subtitle": ""
+    },
+    "login": {
+      "name": "เข้าสู่ระบบ",
+      "subtitle": "เข้าสู่ระบบเพื่อดำเนินการต่อ"
+    }
+  },
+
+  "leave-state": {
+    "all": "ทุกสถานะ",
+    "draft": "ฉบับร่าง",
+    "waiting-hr-approval": "รอฝ่าย HR อนุมัติ",
+    "waiting-manager-approval": "รอผู้จัดการอนุมัติ",
+    "complete": "เสร็จสิ้น",
+    "cancelled": "ยกเลิกแล้ว"
+  },
+
+  "permissions": {
+    "view-user": "ดูผู้ใช้",
+    "create-user": "สร้างผู้ใช้",
+    "edit-user": "แก้ไขผู้ใช้",
+    "delete-user": "ลบผู้ใช้",
+    "view-role": "ดูบทบาท",
+    "create-role": "สร้างบทบาท",
+    "edit-role": "แก้ไขบทบาท",
+    "delete-role": "ลบบทบาท",
+    "view-workflow": "ดูเวิร์กโฟลว์",
+    "create-workflow": "สร้างเวิร์กโฟลว์",
+    "edit-workflow": "แก้ไขเวิร์กโฟลว์",
+    "delete-workflow": "ลบเวิร์กโฟลว์",
+    "view-system": "ดูระบบ",
+    "edit-system": "แก้ไขระบบ",
+    "view-leave-quota": "ดูโควตาการลา",
+    "create-leave-quota": "สร้างโควตาการลา",
+    "edit-leave-quota": "แก้ไขโควตาการลา",
+    "delete-leave-quota": "ลบโควตาการลา",
+    "view-leave-form": "ดูแบบฟอร์มลา",
+    "create-leave-form": "สร้างแบบฟอร์มลา",
+    "edit-leave-form": "แก้ไขแบบฟอร์มลา",
+    "delete-leave-form": "ลบแบบฟอร์มลา",
+    "view-my-task": "ดูงานของฉัน",
+    "edit-my-task": "แก้ไขงานของฉัน",
+    "save-leave": "บันทึกการลา",
+    "submit-leave": "ส่งคำขอลา",
+    "approve-leave": "อนุมัติการลา",
+    "reject-leave": "ปฏิเสธการลา",
+    "cancel-leave": "ยกเลิกการลา",
+    "view-report": "ดูรายงาน",
+    "export-report": "ส่งออกรายงาน"
+  },
+  "dashboard": {
+    "leave-summary": "สรุปการลา",
+    "m-leave-calendar": "ปฏิทินการลาของฉัน",
+    "t-leave-calendar": "ปฏิทินการลาของทีม",
+    "start-date-leave": "วันที่เริ่มลา",
+    "end-date-leave": "วันที่สิ้นสุดการลา",
+    "days-used": "จำนวนวันลาที่ใช้ไปแล้ว",
+    "remaining": "จำนวนวันลาที่เหลือ",
+    "all": "วันลาทั้งหมด",
+    "days": "วัน",
+    "employee": "ชื่อพนักงาน",
+    "leave-type": "ประเภทการลา",
+    "leave-date-range": "ช่วงวันที่ลา",
+    "more": "เพิ่มเติม",
+    "details": "รายละเอียด"
+  }
+}

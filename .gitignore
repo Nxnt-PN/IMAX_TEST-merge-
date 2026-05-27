@@ -1,0 +1,29 @@
+.DS_Store
+Thumbs.db
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# Dependencies and build output
+node_modules/
+dist/
+dist-ssr/
+build/
+
+# Local caches
+.gocache/
+.gocache-*/
+.npm-cache/
+.vite/
+
+# Logs and reports
+*.log
+test-results/
+playwright-report/
+blob-report/
+
+# Runtime files
+uploads/
+tmp/

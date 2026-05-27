@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+
+  database:
+    image: postgres:16-alpine
+    container_name: database
+    ports:
+      - "5433:5432"
+    volumes:
+      - psqldata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: imaxx_office
+
+volumes:
+  psqldata:
+
+# command
+# "docker compose -f docker-compose.local.yml up"
+# command remove all in docker compose
+# "docker compose down --volumes --rmi all"

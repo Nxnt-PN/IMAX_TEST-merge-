@@ -1,0 +1,291 @@
+{
+  "app": {
+    "title": "iMAXX Smart Office"
+  },
+
+  "button": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "export": "Export",
+    "search": "Search",
+    "approve": "Approve",
+    "reject": "Reject",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "ok": "OK",
+    "clear": "Clear",
+    "create": "Create",
+    "delete": "Delete",
+    "notification": "Mark all as read",
+    "close": "Close"
+  },
+
+  "action": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "export": "Export",
+    "search": "Search",
+    "approve": "Approve",
+    "reject": "Reject",
+    "submit": "Submit",
+    "confirm": "Confirm",
+    "ok": "OK",
+    "clear": "Clear",
+    "delete": "Delete"
+  },
+
+  "form": {
+    "date": "Date",
+    "from": "From",
+    "to": "To",
+    "type": "Leave Type",
+    "reason": "Reason",
+    "attachment": "Attachment",
+    "remark": "Remark",
+    "keyword": "Keyword",
+    "name": "Name",
+    "status": "Status",
+    "leave-period": "Leave Period",
+    "days": "Days",
+    "action": "Action",
+    "create": "Create {{field}}",
+    "add": "Add {{field}}",
+    "new": "New {{field}}",
+    "edit": "Edit {{field}}",
+    "first-name": "First Name",
+    "last-name": "Last Name",
+    "start-date": "Start Date",
+    "end-date": "End Date",
+    "role": "Role",
+    "email": "Email",
+    "username": "Username",
+    "user": "User",
+    "change-password": "Change Password",
+    "employed-date": "Employed Date",
+    "available": "Available",
+    "selected": "Selected",
+    "active": "Active",
+    "inactive": "Inactive",
+    "permission": "Permission",
+    "file-name": "File Name",
+    "password": "Password",
+    "confirm-password": "Confirm Password",
+    "year": "Year",
+    "month": "Month",
+    "workflow": "Workflow",
+    "workflow-name": "Workflow Name",
+    "system": "System",
+    "system-name": "System Name",
+    "system-key": "System Key",
+    "workflow-detail": "Workflow Detail",
+    "detail": "Detail",
+    "workflow-detail-name": "Workflow Detail Name",
+    "final": "Final",
+    "leave-quota": "Leave Quota",
+    "child-role": "Child",
+    "quota-detail": "Quota Detail",
+    "work-experience": "Work Experience",
+    "absence": "Business Leave",
+    "annual": "Annual Leave",
+    "sick": "Sick Leave",
+    "other": "Other Leave",
+    "day-per-year": "Day / Year",
+    "day": "Day",
+    "location": "Location",
+    "state":"State",
+    "year-abbreviate":"y",
+    "month-abbreviate":"m",
+    "day-abbreviate":"d"
+  },
+
+  "label": {
+    "view-all-notification": "View all notifications",
+    "login": "Login",
+    "web-quote-1": "Manage users, roles and permissions",
+    "web-quote-2": "with simplicity and confidence.",
+    "row-per-page": "Row Per Page",
+    "showing": "Showing",
+    "of": "of",
+    "attachment-support": "Supports image, PDF, and Office file up to 5 MB.",
+    "file-maximum": "Maximum {{maximumFile}} file",
+    "empty-text": "No Data",
+    "leave-request": "Leave Request",
+    "confirm": "Confirm {{action}}",
+    "confirm-subtitle": "Please review the information carefully before proceeding.",
+    "select-field": "Select {{field}}",
+    "action-by": "{{action}} by {{name}} at {{dateTime}}",
+    "at": "at",
+    "history": "Log History",
+    "change-password-success":"Change Password Successfully"
+  },
+
+  "error": {
+    "unauthorized": "Unauthorized",
+    "unauthorized-subtitle": "Your session has expired. Please log in again.",
+    "server-unavailable": "Server is temporarily closed or unavailable.",
+    "internal-server": "Something went wrong on our server (500).",
+    "no-internet": "Please check your internet connection."
+  },
+
+  "placeholder": {
+    "confirm-remark": "Enter remark or additional note (optional)"
+  },
+
+  "leave-type": {
+    "all": "All Leave Type",
+    "absence": "Business",
+    "annual": "Annual",
+    "sick": "Sick",
+    "other": "Other"
+  },
+
+  "menu": {
+    "dashboard": "Dashboard",
+    "notification": "Notification",
+    "my-leave": "My Leave",
+    "my-task": "My Task",
+    "report": "Report",
+    "summary-report": "Summary Report",
+    "staff-report": "Staff Report",
+    "user-management": "User Management",
+    "user": "Users",
+    "role": "Roles",
+    "setting": "Setting",
+    "leave-quota": "Leave Quota",
+    "workflow": "Workflow",
+    "system": "System",
+    "my-profile": "Profile",
+    "logout": "Logout"
+  },
+
+  "titles": {
+    "dashboard": {
+      "name": "Dashboard",
+      "subtitle": "Overview of leave trends, balances, and team availability."
+    },
+    "notification": {
+      "name": "Notification",
+      "subtitle": "Track status updates on your leave requests and approvals."
+    },
+    "my-leave": {
+      "name": "My Leave",
+      "subtitle": "Submit new leave requests and view your personal history."
+    },
+    "my-task": {
+      "name": "My Task",
+      "subtitle": "Pending leave approvals and tasks requiring your action."
+    },
+    "staff-report": {
+      "name": "Staff Report",
+      "subtitle": "Analyze leave analytics and attendance summaries."
+    },
+    "summary-report": {
+      "name": "Summary Report",
+      "subtitle": "Analyze leave analytics and attendance summaries."
+    },
+    "user-management": {
+      "name": "User Management",
+      "subtitle": "Manage employee profiles and organizational structure."
+    },
+    "user": {
+      "name": "Users",
+      "subtitle": "View and update employee information and department info."
+    },
+    "role": {
+      "name": "Roles",
+      "subtitle": "Define approval authority and administrative permissions."
+    },
+    "setting": {
+      "name": "Setting",
+      "subtitle": "Configure leave types, holidays, and office hours."
+    },
+    "leave-quota": {
+      "name": "Leave Quota",
+      "subtitle": "Manage leave entitlements and yearly balance renewals."
+    },
+    "workflow": {
+      "name": "Workflow",
+      "subtitle": "Set up multi-level approval paths for leave requests."
+    },
+    "system": {
+      "name": "System",
+      "subtitle": "Monitor system logs and global leave configurations."
+    },
+    "my-profile": {
+      "name": "My Profile",
+      "subtitle": ""
+    },
+    "login": {
+      "name": "Login",
+      "subtitle": "Login to continue"
+    }
+  },
+
+  "leave-state": {
+    "all": "All Status",
+    "draft": "Draft",
+    "waiting-hr-approval": "Waiting HR Approval",
+    "waiting-manager-approval": "Waiting Manager Approval",
+    "complete": "Completed",
+    "cancelled": "Cancelled"
+  },
+
+  "permissions": {
+    "view-user": "View User",
+    "create-user": "Create User",
+    "edit-user": "Edit User",
+    "delete-user": "Delete User",
+
+    "view-role": "View Role",
+    "create-role": "Create Role",
+    "edit-role": "Edit Role",
+    "delete-role": "Delete Role",
+
+    "view-workflow": "View Workflow",
+    "create-workflow": "Create Workflow",
+    "edit-workflow": "Edit Workflow",
+    "delete-workflow": "Delete Workflow",
+
+    "view-system": "View System",
+    "edit-system": "Edit System",
+
+    "view-leave-quota": "View Leave Quota",
+    "create-leave-quota": "Create Leave Quota",
+    "edit-leave-quota": "Edit Leave Quota",
+    "delete-leave-quota": "Delete Leave Quota",
+
+    "view-leave-form": "View Leave Form",
+    "create-leave-form": "Create Leave Form",
+    "edit-leave-form": "Edit Leave Form",
+    "delete-leave-form": "Delete Leave Form",
+
+    "view-my-task": "View My Task",
+    "edit-my-task": "Edit My Task",
+
+    "save-leave": "Save Leave",
+    "submit-leave": "Submit Leave",
+    "approve-leave": "Approve Leave",
+    "reject-leave": "Reject Leave",
+    "cancel-leave": "Cancel Leave",
+
+    "view-report": "View Report",
+    "export-report": "Export Report"
+  },
+
+  "dashboard": {
+    "leave-summary": "Leave Summary",
+    "m-leave-calendar": "My Leave Calendar",
+    "t-leave-calendar": "Team Leave Calendar",
+    "start-date-leave": "Start Date Leave",
+    "end-date-leave": "End Date Leave",
+    "days-used": "Date already used",
+    "remaining": "Remaining",
+    "all": "All",
+    "days": "Days",
+    "employee": "Employee",
+    "leave-type": "Leave Type",
+    "leave-date-range": "Leave Date",
+    "more": "more",
+    "details": "Details"
+  }
+}
