@@ -5,6 +5,7 @@ import (
 	"imaxx-smart-office-be/config"
 	"imaxx-smart-office-be/internal/controller"
 	"imaxx-smart-office-be/internal/middleware"
+	pcRepo "imaxx-smart-office-be/internal/pettycash/repository"
 	"imaxx-smart-office-be/internal/realtime"
 	"imaxx-smart-office-be/internal/repository"
 	"imaxx-smart-office-be/internal/router"
@@ -80,8 +81,9 @@ func main() {
 		txManager, leaveFormRepository, leaveQuotaRepository, systemRepository, workflowRepository, userRepository, notificationRepository, roleRepository,
 	)
 	notificationService := service.NewNotificationServiceImpl(notificationRepository)
+	pettyCashRepo := pcRepo.NewPettyCashRepository(db)
 	dashboardService := service.NewDashboardServiceImpl(leaveFormRepository, leaveQuotaRepository, userRepository)
-	menuStatusService := service.NewMenuStatusServiceImpl(leaveFormRepository, userRepository)
+	menuStatusService := service.NewMenuStatusServiceImpl(leaveFormRepository, userRepository, pettyCashRepo)
 	leaveReportService := service.NewLeaveReportServiceImpl(leaveFormRepository, userRepository)
 
 	//Initial Controller

@@ -180,3 +180,46 @@ Commit: `feat: add petty cash backend API`
 
 - ถ้าต้องถอย PR นี้ ให้ลบ `internal/pettycash/**`, `internal/router/pettycashRoute.go`, ถอด `router.NewPettycashRouter` จาก `main.go`, revert Petty Cash structs ใน `loader/main.go`, และถอด `github.com/go-pdf/fpdf` จาก `go.mod`/`go.sum`
 
+## PR 4: Backend Petty Cash Workflow
+
+Branch: `feature/pettycash-04-backend-workflow`
+Commit: `feat: add petty cash approval workflow`
+
+### Summary
+
+เปิด backend workflow actions ของ Petty Cash ต่อจาก core API ใน PR3 ได้แก่ submit, approve, reject, cancel และ resend พร้อมเพิ่ม task badge count สำหรับ Petty Cash ใน `/api/menu-status/my` และ WebSocket status payload
+
+### Files Changed
+
+| File/Area | Type | Before | After | Purpose |
+|---|---|---|---|---|
+| `internal/router/pettycashRoute.go` | Modified | route group มีเฉพาะ core endpoints | เพิ่ม workflow routes `/submit/:id`, `/approve/:id`, `/reject/:id`, `/cancel/:id`, `/resend/:id` | เปิด API workflow actions ให้ frontend เรียกใช้งานได้ |
+| `internal/service/menuStatusService.go` | Modified | badge count นับเฉพาะ Leave my task | เพิ่ม Petty Cash repository และนับ pending Petty Cash tasks ตาม role | ให้ sidebar/menu badge แสดงงานอนุมัติ Petty Cash ได้ |
+| `internal/response/menuStatusResponse.go` | Modified | response มีแค่ `my_task_count` | เพิ่ม `pettycash_task_count` | ส่ง task count แยกของ Petty Cash ให้ frontend/WebSocket |
+| `main.go` | Modified | `MenuStatusService` ไม่ได้รับ Petty Cash repository | สร้าง `pettyCashRepo` และส่งเข้า `NewMenuStatusServiceImpl` | เชื่อม dependency สำหรับ badge count |
+| `internal/seed/seedWorkflow.go` | Modified | Petty Cash workflow seed สร้าง workflow/system เท่านั้น | ใช้ Petty Cash model หลัง PR3 และ sync pending forms state/role | ให้ seed workflow align กับ role Finance และ state detail |
+| `internal/seed/seedPettyCash.go` | Modified | seed เฉพาะ project/reason master data แบบ raw table | seed ผ่าน Petty Cash model พร้อมตัวอย่าง draft/pending/completed forms | เตรียมข้อมูลทดสอบ workflow/list/summary หลัง apply seed |
+
+### Behavior Impact
+
+- เพิ่ม workflow API โดยคง route เดิมของ IMAX_MAIN:
+  - `POST /api/pettycash/submit/:id`
+  - `POST /api/pettycash/approve/:id`
+  - `POST /api/pettycash/reject/:id`
+  - `POST /api/pettycash/cancel/:id`
+  - `POST /api/pettycash/resend/:id`
+- route workflow ถูกวางก่อน `/:id` เพื่อกัน wildcard conflict ของ Gin โดยไม่เปลี่ยน path/API
+- เพิ่ม `pettycash_task_count` ใน menu status response
+- เพิ่ม seed sample forms สำหรับ workflow testing
+- ไม่เปลี่ยน permission names, schema หรือ Leave workflow เดิม
+
+### Tests Run
+
+- `go test -vet=off ./...` ผ่านทุก package โดยใช้ local `GOCACHE=.gocache-local`
+- `go test ./...` ยังไม่ผ่านจาก pre-existing vet issue ที่ `internal/middleware/authMiddleware.go:28`
+- ยังไม่ได้ manual smoke workflow กับ database จริงในรอบนี้
+
+### Rollback Note
+
+- ถ้าต้องถอย PR นี้ ให้ลบ workflow routes ออกจาก `pettycashRoute.go`, revert `menuStatusService.go`, `menuStatusResponse.go`, dependency wiring ใน `main.go`, และ revert seed workflow/sample forms
+
