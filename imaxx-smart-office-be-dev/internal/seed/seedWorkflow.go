@@ -3,6 +3,7 @@ package seed
 import (
 	"imaxx-smart-office-be/enums"
 	"imaxx-smart-office-be/internal/model"
+	pettyModel "imaxx-smart-office-be/internal/pettycash/model"
 	"log"
 	"time"
 
@@ -85,24 +86,21 @@ func SeedWorkflow(db *gorm.DB) {
 		})
 	}
 
-	seedPettyCashWorkflow(db)
-}
-
-func seedPettyCashWorkflow(db *gorm.DB) {
-	var financeRole model.Role
-	if err := db.Where("name = ?", "Finance").First(&financeRole).Error; err != nil || financeRole.ID == nil {
-		log.Println("Finance role not found, skipping petty cash workflow seed")
-		return
-	}
-
 	var chkPettyCashWorkflow int64
 	db.Model(&model.Workflow{}).
 		Where("name = ?", "Petty Cash Workflow").Count(&chkPettyCashWorkflow)
+	var financeRole model.Role
+	if err := db.Where("name = ?", "Finance").First(&financeRole).Error; err != nil {
+		log.Println("Finance role not found, skipping petty cash workflow seed")
+		return
+	}
 	if chkPettyCashWorkflow == 0 {
 		workflow := model.Workflow{
-			BaseModel: model.BaseModel{CreatedAt: time.Now()},
-			Name:      "Petty Cash Workflow",
-			Status:    1,
+			BaseModel: model.BaseModel{
+				CreatedAt: time.Now(),
+			},
+			Name:   "Petty Cash Workflow",
+			Status: 1,
 			WorkflowDetails: []model.WorkflowDetail{
 				{
 					Name:    "Waiting for Finance Approve",
@@ -114,11 +112,11 @@ func seedPettyCashWorkflow(db *gorm.DB) {
 				},
 			},
 		}
+
 		if err := db.Create(&workflow).Error; err != nil {
 			log.Printf("Could not seed petty cash workflow: %v", err)
 		}
 	}
-
 	var pettyCashWorkflow model.Workflow
 	db.Where("name = ? ", "Petty Cash Workflow").First(&pettyCashWorkflow)
 	if pettyCashWorkflow.ID != nil {
@@ -134,7 +132,9 @@ func seedPettyCashWorkflow(db *gorm.DB) {
 			})
 		} else {
 			db.Create(&model.WorkflowDetail{
-				BaseModel:  model.BaseModel{CreatedAt: time.Now()},
+				BaseModel: model.BaseModel{
+					CreatedAt: time.Now(),
+				},
 				WorkflowID: *pettyCashWorkflow.ID,
 				Name:       "Waiting for Finance Approve",
 				Seq:        1,
@@ -144,6 +144,10 @@ func seedPettyCashWorkflow(db *gorm.DB) {
 				Status:     1,
 			})
 		}
+		db.Model(&pettyModel.PettyCashForm{}).Where("state = ?", 2).Updates(map[string]interface{}{
+			"role_id":      *financeRole.ID,
+			"state_detail": "Waiting for Finance",
+		})
 	}
 
 	var chkPettyCashSystem int64
@@ -151,12 +155,15 @@ func seedPettyCashWorkflow(db *gorm.DB) {
 		Where("slug = ?", string(enums.PettyCashSystemSlug)).Count(&chkPettyCashSystem)
 	if chkPettyCashSystem == 0 && pettyCashWorkflow.ID != nil {
 		system := model.System{
-			BaseModel:  model.BaseModel{CreatedAt: time.Now()},
+			BaseModel: model.BaseModel{
+				CreatedAt: time.Now(),
+			},
 			Slug:       string(enums.PettyCashSystemSlug),
 			Name:       "Petty Cash",
 			Status:     1,
 			WorkflowID: *pettyCashWorkflow.ID,
 		}
+
 		if err := db.Create(&system).Error; err != nil {
 			log.Printf("Could not seed petty cash system: %v", err)
 		}
