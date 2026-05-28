@@ -36,3 +36,10 @@ sonar-project.properties
 
 # env
 .env
+.env.*
+!.env.example
+.npm-cache/
+.vite/
+.cache/
+coverage/
+build/

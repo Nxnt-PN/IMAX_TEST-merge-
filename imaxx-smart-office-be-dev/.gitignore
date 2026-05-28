@@ -30,3 +30,14 @@ uploads/
 # tmp file from air
 /tmp
 /.vscode
+.env.*
+!.env.example
+.gocache/
+.gocache-*/
+.gocache-local/
+*.log
+coverage.out
+tmp/
+docker-tmp/
+docker-temp/
+
