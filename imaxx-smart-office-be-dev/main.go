@@ -121,6 +121,7 @@ func main() {
 	router.NewDashboardRouter(baseRouter, dashboardController, db)
 	router.NewMenuStatusRouter(baseRouter, menuStatusController, db)
 	router.NewLeaveReportRouter(baseRouter, leaveReportController, db)
+	router.NewPettycashRouter(baseRouter, db)
 
 	wsGroup := r.Group("/ws")
 	wsGroup.Use(middleware.AuthorizeWS(db))

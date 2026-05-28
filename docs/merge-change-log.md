@@ -137,3 +137,46 @@ Commit: `feat: add petty cash schema and seed data`
 
 - ถ้าต้องถอย PR นี้ ให้ถอด migration ใหม่ทั้ง 3 ไฟล์และ checksum ใน `atlas.sum`, revert `atlas.hcl`/scripts, revert seed user/workflow/system slug/main seed call และลบ `seedPettyCash.go`
 
+## PR 3: Backend Petty Cash Core API
+
+Branch: `feature/pettycash-03-backend-core`
+Commit: `feat: add petty cash backend API`
+
+### Summary
+
+เพิ่ม backend module หลักของ Petty Cash สำหรับ list/detail/create/update/master data/upload/PDF โดย register route `/api/pettycash` แล้ว แต่ยังไม่เปิด workflow action routes ได้แก่ submit, approve, reject, cancel, resend ซึ่งจะแยกไป PR 4
+
+### Files Changed
+
+| File/Area | Type | Before | After | Purpose |
+|---|---|---|---|---|
+| `internal/pettycash/model/**` | Added | Origin ยังไม่มี model เฉพาะ Petty Cash | เพิ่ม model สำหรับ form, item, attachment, history, project, reason และ model support ที่ต้อง preload | ให้ repository/service map กับ schema ที่เพิ่มใน PR2 ได้ |
+| `internal/pettycash/repository/**` | Added | ยังไม่มี data access layer ของ Petty Cash | เพิ่ม repository สำหรับ list/count/detail/create/update/project/reason/history/upload relation | แยก database query ของ Petty Cash ออกจาก controller/service |
+| `internal/pettycash/request/**` | Added | ยังไม่มี request DTO ของ Petty Cash | เพิ่ม DTO สำหรับ create/update/action/project/reason | รับ payload จาก frontend โดยคง API contract ของ IMAX_MAIN |
+| `internal/pettycash/response/**` | Added | ยังไม่มี response DTO ของ Petty Cash | เพิ่ม response shape สำหรับ list/summary/pagination/upload | ให้ controller ส่ง response shape ที่ frontend ใช้อยู่ |
+| `internal/pettycash/service/**` | Added | ยังไม่มี business logic ของ Petty Cash | เพิ่ม service สำหรับ read/write/core helpers และ workflow methods ที่ยังไม่ expose route ใน PR นี้ | รองรับ core API และเตรียม reuse สำหรับ PR4 |
+| `internal/pettycash/controller/**` | Added | ยังไม่มี controller ของ Petty Cash | เพิ่ม controller สำหรับ list/detail/create/update/history/summary/project/reason/upload/pdf และ permission helper | เปิด backend handler ของ Petty Cash โดยคุม permission ตาม seed |
+| `internal/router/pettycashRoute.go` | Added | ยังไม่มี route group `/api/pettycash` | เพิ่ม route group สำหรับ core endpoints เท่านั้น | เปิด API core โดยยังไม่เปิด workflow action routes |
+| `main.go` | Modified | runtime ยังไม่ได้ register Petty Cash router | เพิ่ม `router.NewPettycashRouter(baseRouter, db)` | ให้ backend serve `/api/pettycash...` |
+| `loader/main.go` | Modified | Atlas GORM source ยังไม่รู้จัก Petty Cash schema | เพิ่ม GORM schema structs ของ Petty Cash ใน loader | ให้ Atlas schema source สอดคล้องกับ migration |
+| `go.mod` / `go.sum` | Modified | ยังไม่มี dependency PDF generator ที่ Petty Cash PDF ใช้ | เพิ่ม `github.com/go-pdf/fpdf v0.9.0` | รองรับ PDF download endpoint |
+
+### Behavior Impact
+
+- เพิ่ม route group `/api/pettycash`
+- เปิด core endpoints: projects, reasons, list, detail, create, update, history, summary, upload, PDF
+- ยังไม่เปิด routes: `/submit/:id`, `/approve/:id`, `/reject/:id`, `/cancel/:id`, `/resend/:id`
+- ไม่เพิ่ม Thai font assets ใน PR นี้ และ PDF ใช้ standard font เพื่อเลี่ยงไฟล์ font ใหญ่/ปัญหา layout ที่เคยเจอ
+- ไม่แตะ menu badge/task count ใน PR นี้ เพราะจะรวมกับ workflow ใน PR4
+- ไม่เปลี่ยน Leave/User/Role route เดิม
+
+### Tests Run
+
+- `go test -vet=off ./...` ผ่านทุก package โดยใช้ local `GOCACHE=.gocache-local`
+- `go test ./...` ยังไม่ผ่านจาก pre-existing vet issue ที่ `internal/middleware/authMiddleware.go:28`
+- ยังไม่ได้ smoke API กับ database จริงในรอบนี้ เพราะต้องมี migration/seed apply ใน environment ก่อน
+
+### Rollback Note
+
+- ถ้าต้องถอย PR นี้ ให้ลบ `internal/pettycash/**`, `internal/router/pettycashRoute.go`, ถอด `router.NewPettycashRouter` จาก `main.go`, revert Petty Cash structs ใน `loader/main.go`, และถอด `github.com/go-pdf/fpdf` จาก `go.mod`/`go.sum`
+
