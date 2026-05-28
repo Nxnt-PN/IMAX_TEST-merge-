@@ -92,3 +92,48 @@ Commit: `feat: add backend foundation for location support`
 
 - ถ้าต้องถอย PR นี้ ให้ลบ location controller/model/repository/request/router/service, ถอด location wiring ใน `main.go`, ถอด `model.Location` จาก `loader/main.go`, และ revert user location fields/preloads/service mapping
 
+## PR 2: Backend Schema + Seed
+
+Branch: `feature/pettycash-02-backend-schema`
+Commit: `feat: add petty cash schema and seed data`
+
+### Summary
+
+เพิ่ม schema และ seed พื้นฐานสำหรับ Location/Petty Cash เพื่อเตรียมฐานข้อมูลก่อนนำ backend API เข้ามาใน PR ถัดไป โดยยังไม่เพิ่ม Petty Cash controller/service/repository หลัก และยังไม่เปลี่ยน route/API ของระบบเดิม
+
+### Files Changed
+
+| File/Area | Type | Before | After | Purpose |
+|---|---|---|---|---|
+| `migrations/20260522000100_add_pettycash_module.sql` | Added | Origin ยังไม่มีตาราง Petty Cash | เพิ่มตาราง project, reason, form, item, attachment, history | เตรียม schema สำหรับคำขอเบิกเงินสด |
+| `migrations/20260525090000_add_locations_user_location.sql` | Added | ยังไม่มีตาราง locations และ `users.location_id` | เพิ่ม `locations` และ foreign key จาก users | รองรับ user location และข้อมูลผู้ขอเบิก |
+| `migrations/20260527163000_extend_pettycash_attachment_file_path.sql` | Added | `petty_cash_attachments.file_path` ยาว 100 | ขยายเป็น varchar(500) | รองรับ path ไฟล์แนบที่ยาวขึ้น |
+| `migrations/atlas.sum` | Modified | checksum ยังไม่มี migration ใหม่ | เพิ่ม checksum ของ migration ใหม่ | ให้ Atlas ตรวจ migration chain ได้ถูกต้อง |
+| `atlas.hcl` | Modified | มีเฉพาะ env `gorm` และยังไม่ผูก `DATABASE_URL` | เพิ่ม `local` env, `DATABASE_URL`, dev database Postgres 16 และ destructive lint | ทำให้ migration workflow ตรงกับ IMAX_MAIN |
+| `scripts/atlas.cmd`, `scripts/atlas.ps1`, `scripts/atlas-env.cmd`, `scripts/atlas-env.ps1` | Added | Origin ไม่มี helper scripts สำหรับ Atlas | เพิ่ม script สำหรับเรียก Atlas และตั้งค่า local env | ลดการพิมพ์ config/database URL โดยตรง |
+| `enums/system.go` | Modified | มีเฉพาะ `leave_system` | เพิ่ม `PettyCashSystemSlug = "petty-cash"` | ใช้อ้างอิงระบบ Petty Cash ใน seed/workflow |
+| `internal/seed/seedUser.go` | Modified | seed permission/role มีเฉพาะระบบเดิม | เพิ่ม permission Petty Cash, role Finance และ role permission grants | เตรียมสิทธิ์ requester/approver/report/master data |
+| `internal/seed/seedWorkflow.go` | Modified | seed เฉพาะ Leave workflow/system | เพิ่ม Petty Cash workflow, workflow detail และ system seed | เตรียม workflow รอ Finance approve |
+| `internal/seed/seedPettyCash.go` | Added | ยังไม่มี seed master data Petty Cash | เพิ่ม seed project/reason master data แบบ raw DB table | เตรียม master data โดยไม่ต้อง import Petty Cash model ก่อน PR3 |
+| `main.go` | Modified | seed flow เรียก user/workflow/leave quota | เพิ่ม `SeedPettyCash` หลัง workflow | ให้ seed master data Petty Cash ทำงานเมื่อรัน `-seed=t` |
+
+### Behavior Impact
+
+- เพิ่ม schema ใหม่สำหรับ Location และ Petty Cash เมื่อ apply migration
+- เพิ่ม permission names: `view_pettycash`, `create_pettycash`, `edit_pettycash`, `delete_pettycash`, `save_pettycash`, `submit_pettycash`, `approve_pettycash`, `reject_pettycash`, `cancel_pettycash`, `resend_pettycash`, `view_pettycash_report`, `export_pettycash_report`, `manage_pettycash_master`
+- เพิ่ม role `Finance` และผูก admin เข้ากับ Finance เพื่อให้ seed/workflow ทดสอบต่อได้
+- เพิ่ม Petty Cash workflow แบบ 1 step: `Waiting for Finance Approve`
+- ตั้งใจยังไม่เพิ่ม Petty Cash API/controller/service/repository หลักใน PR นี้
+- `SeedPettyCash` รอบนี้ seed เฉพาะ project/reason master data ด้วย raw SQL เพื่อไม่ให้ compile พังจาก model ที่จะเข้ามาใน PR3
+
+### Tests Run
+
+- `go test -vet=off ./...` ผ่านทุก package โดยใช้ local `GOCACHE=.gocache-local`
+- `go test ./...` ยังไม่ผ่านจาก pre-existing vet issue ที่ `internal/middleware/authMiddleware.go:28`
+- `scripts\atlas.cmd migrate lint --env local --latest 1` ยังรันไม่ได้ เพราะเครื่องไม่มี `atlas` CLI หรือ `tools/atlas/atlas.exe` ใน PATH
+- ยังไม่ได้ apply/dry-run migration กับ database จริง เพราะ Atlas CLI ยังไม่พร้อมใน workspace นี้
+
+### Rollback Note
+
+- ถ้าต้องถอย PR นี้ ให้ถอด migration ใหม่ทั้ง 3 ไฟล์และ checksum ใน `atlas.sum`, revert `atlas.hcl`/scripts, revert seed user/workflow/system slug/main seed call และลบ `seedPettyCash.go`
+

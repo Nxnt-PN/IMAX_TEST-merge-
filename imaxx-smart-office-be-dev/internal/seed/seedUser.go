@@ -98,6 +98,9 @@ func SeedUser(db *gorm.DB) {
 		"view_my_task", "edit_my_task", //my task
 		"save_leave", "submit_leave", "approve_leave", "reject_leave", "cancel_leave", //leave_review
 		"view_report", "export_report", // report
+		"view_pettycash", "create_pettycash", "edit_pettycash", "delete_pettycash", "save_pettycash", "submit_pettycash", // petty cash requester
+		"approve_pettycash", "reject_pettycash", "cancel_pettycash", "resend_pettycash", // petty cash workflow actions
+		"view_pettycash_report", "export_pettycash_report", "manage_pettycash_master", // petty cash report and master data
 	}
 	for _, p := range permissions {
 		var chkPermission int64 = 0
@@ -115,10 +118,10 @@ func SeedUser(db *gorm.DB) {
 	}
 
 	roles := []string{
-		"ผู้ดูแลระบบ", "ฝ่ายบุคคล", "ผู้จัดการ", "พนักงาน",
+		"ผู้ดูแลระบบ", "ฝ่ายบุคคล", "ผู้จัดการ", "พนักงาน", "การเงิน",
 	}
 	roles_eng := []string{
-		"Administrator", "Human Resource", "Manager", "Employee",
+		"Administrator", "Human Resource", "Manager", "Employee", "Finance",
 	}
 	var adminRoleId *uuid.UUID
 	for i, r := range roles {
@@ -182,7 +185,62 @@ func SeedUser(db *gorm.DB) {
 			}
 			db.Create(&userRole)
 		}
+
+		var financeRole model.Role
+		if err := db.Where("name = ? ", "Finance").First(&financeRole).Error; err == nil && financeRole.ID != nil {
+			var chkFinanceUserRole int64 = 0
+			db.Model(&model.UserRole{}).
+				Where("role_id = ? and user_id = ?", financeRole.ID, userId).Count(&chkFinanceUserRole)
+			if chkFinanceUserRole == 0 {
+				userRole := model.UserRole{
+					UserID: *userId,
+					RoleID: *financeRole.ID,
+				}
+				db.Create(&userRole)
+			}
+		}
 	}
+
+	grantRolePermissions := func(roleName string, permissionNames []string) {
+		var role model.Role
+		if err := db.Where("name = ? ", roleName).First(&role).Error; err != nil || role.ID == nil {
+			return
+		}
+
+		var permissions []model.Permission
+		db.Where("name IN (?)", permissionNames).Find(&permissions)
+		rolePermissionRows := make([]model.RolePermission, 0, len(permissions))
+		for _, permission := range permissions {
+			if permission.ID == nil {
+				continue
+			}
+			var count int64
+			db.Model(&model.RolePermission{}).
+				Where("role_id = ? and permission_id = ?", role.ID, permission.ID).
+				Count(&count)
+			if count == 0 {
+				rolePermissionRows = append(rolePermissionRows, model.RolePermission{
+					RoleID:       *role.ID,
+					PermissionID: *permission.ID,
+				})
+			}
+		}
+		if len(rolePermissionRows) > 0 {
+			db.Create(&rolePermissionRows)
+		}
+	}
+
+	grantRolePermissions("Employee", []string{
+		"view_pettycash", "create_pettycash", "edit_pettycash", "delete_pettycash",
+		"save_pettycash", "submit_pettycash", "cancel_pettycash", "resend_pettycash",
+	})
+	grantRolePermissions("Manager", []string{
+		"view_pettycash", "approve_pettycash", "reject_pettycash",
+	})
+	grantRolePermissions("Finance", []string{
+		"view_pettycash", "approve_pettycash", "reject_pettycash",
+		"view_pettycash_report", "export_pettycash_report",
+	})
 
 	// create hr permission
 
