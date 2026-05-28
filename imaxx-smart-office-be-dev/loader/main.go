@@ -11,6 +11,7 @@ import (
 
 func main() {
 	stmts, err := gormschema.New("postgres").Load(
+		&model.Location{},
 		&model.User{},
 		&model.Role{},
 		&model.ParentChildRole{},

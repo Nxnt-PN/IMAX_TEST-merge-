@@ -24,6 +24,7 @@ type UserRepository interface {
 	Update(id uuid.UUID, data model.User)
 	MagicUpdate(ctx context.Context, id uuid.UUID, updates map[string]interface{}) error
 	Delete(id uuid.UUID)
+	UpdateUserLocation(id uuid.UUID, locationID *uuid.UUID)
 
 	UpdateUserRoles(user *model.User, roleIds []uuid.UUID)
 }
@@ -38,7 +39,7 @@ func NewUserRepositoryImpl(Db *gorm.DB) UserRepository {
 
 func (u *UserRepositoryImpl) FindAll(pagination helper.Pagination, query string, params []interface{}) *helper.Pagination {
 	var users []model.User
-	result := u.Db.Preload("Roles.Permissions")
+	result := u.Db.Preload("Roles.Permissions").Preload("Location")
 	if len(params) == 0 && query != "" {
 		result = result.Where(query)
 	} else {
@@ -52,7 +53,7 @@ func (u *UserRepositoryImpl) FindAll(pagination helper.Pagination, query string,
 
 func (u *UserRepositoryImpl) FindAllRaw(pagination helper.Pagination, query string, params []interface{}) []model.User {
 	var users []model.User
-	result := u.Db.Preload("Roles")
+	result := u.Db.Preload("Roles").Preload("Location")
 	if len(params) == 0 && query != "" {
 		result = result.Where(query)
 	} else {
@@ -67,6 +68,7 @@ func (u *UserRepositoryImpl) FindActiveAll(pagination helper.Pagination, query s
 	var users []model.User
 	result := u.Db.
 		Preload("Roles.Permissions").
+		Preload("Location").
 		Scopes(model.IsActive)
 	if len(params) == 0 && query != "" {
 		result = result.Where(query)
@@ -148,6 +150,7 @@ func (u *UserRepositoryImpl) FindById(id uuid.UUID) (model.User, error) {
 	var user model.User
 	err := u.Db.
 		Preload("Roles.Permissions").
+		Preload("Location").
 		First(&user, id).Error
 	return user, err
 }
@@ -155,6 +158,7 @@ func (u *UserRepositoryImpl) FindByFilterFirst(query string, params []interface{
 	var user model.User
 	result := u.Db.
 		Preload("Roles.Permissions").
+		Preload("Location").
 		Where(query, params...).First(&user)
 	return user, result
 }
@@ -186,6 +190,14 @@ func (u *UserRepositoryImpl) Update(id uuid.UUID, data model.User) {
 			"status": data.Status,
 		})
 	}
+}
+
+func (u *UserRepositoryImpl) UpdateUserLocation(id uuid.UUID, locationID *uuid.UUID) {
+	var user model.User
+	result := u.Db.Model(&user).Where("id = ?", id).Updates(map[string]interface{}{
+		"location_id": locationID,
+	})
+	helper.ErrorPanic(result.Error)
 }
 
 func (u *UserRepositoryImpl) MagicUpdate(ctx context.Context, id uuid.UUID, updates map[string]interface{}) error {

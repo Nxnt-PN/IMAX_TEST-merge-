@@ -58,6 +58,7 @@ func main() {
 	//Initial Repository
 	txManager := repository.NewTxManager(db)
 	userRepository := repository.NewUserRepositoryImpl(db)
+	locationRepository := repository.NewLocationRepositoryImpl(db)
 	roleRepository := repository.NewRoleRepositoryImpl(db)
 	permissionRepository := repository.NewPermissionRepositoryImpl(db)
 	workflowRepository := repository.NewWorkflowRepositoryImpl(db)
@@ -68,6 +69,7 @@ func main() {
 
 	//Initial Service
 	userService := service.NewUserServiceImpl(userRepository)
+	locationService := service.NewLocationServiceImpl(locationRepository)
 	roleService := service.NewRoleServiceImpl(roleRepository)
 	permissionService := service.NewPermissionServiceImpl(permissionRepository)
 	workflowService := service.NewWorkflowServiceImpl(workflowRepository)
@@ -83,6 +85,7 @@ func main() {
 
 	//Initial Controller
 	userController := controller.NewUserController(userService)
+	locationController := controller.NewLocationController(locationService)
 	roleController := controller.NewRoleController(roleService)
 	permissionController := controller.NewPermissionController(permissionService)
 	workflowController := controller.NewWorkflowController(workflowService)
@@ -106,6 +109,7 @@ func main() {
 	r.Static("/uploads", "./uploads")
 	baseRouter := r.Group("/api")
 	router.NewUserRouter(baseRouter, userController, db)
+	router.NewLocationRouter(baseRouter, locationController, db)
 	router.NewRoleRouter(baseRouter, roleController, db)
 	router.NewPermissionRouter(baseRouter, permissionController, db)
 	router.NewWorkflowRouter(baseRouter, workflowController, db)

@@ -92,6 +92,11 @@ func (u *UserServiceImpl) FindActiveAll(pagination helper.Pagination) *helper.Pa
 func (u *UserServiceImpl) Create(user request.CreateUserRequest) model.User {
 	userCreate := model.User{}
 	copier.Copy(&userCreate, &user)
+	if user.LocationID != nil && *user.LocationID != "" {
+		if locationID, err := uuid.Parse(*user.LocationID); err == nil {
+			userCreate.LocationID = &locationID
+		}
+	}
 	hashPassword, _ := helper.HashPassword(userCreate.Password)
 	userCreate.Password = hashPassword
 	resp := u.UserRepository.Create(userCreate)
@@ -161,8 +166,18 @@ func (u *UserServiceImpl) Update(id uuid.UUID, user request.UpdateUserRequest) (
 	}
 	userUpdate := model.User{}
 	copier.Copy(&userUpdate, &user)
+	if user.LocationID != nil {
+		if *user.LocationID == "" {
+			userUpdate.LocationID = nil
+		} else if locationID, err := uuid.Parse(*user.LocationID); err == nil {
+			userUpdate.LocationID = &locationID
+		}
+	}
 
 	u.UserRepository.Update(id, userUpdate)
+	if user.LocationID != nil {
+		u.UserRepository.UpdateUserLocation(id, userUpdate.LocationID)
+	}
 
 	result, err := u.FindById(id)
 
