@@ -27,3 +27,12 @@ blob-report/
 # Runtime files
 uploads/
 tmp/
+*.local
+coverage/
+.gocache-local/
+.cache/
+coverage.out
+docker-tmp/
+docker-temp/
+*.tmp
+~$*.docx
