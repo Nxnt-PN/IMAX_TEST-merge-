@@ -84,4 +84,88 @@ func SeedWorkflow(db *gorm.DB) {
 			"name": "Leave System",
 		})
 	}
+
+	seedPettyCashWorkflow(db)
+}
+
+func seedPettyCashWorkflow(db *gorm.DB) {
+	var financeRole model.Role
+	if err := db.Where("name = ?", "Finance").First(&financeRole).Error; err != nil || financeRole.ID == nil {
+		log.Println("Finance role not found, skipping petty cash workflow seed")
+		return
+	}
+
+	var chkPettyCashWorkflow int64
+	db.Model(&model.Workflow{}).
+		Where("name = ?", "Petty Cash Workflow").Count(&chkPettyCashWorkflow)
+	if chkPettyCashWorkflow == 0 {
+		workflow := model.Workflow{
+			BaseModel: model.BaseModel{CreatedAt: time.Now()},
+			Name:      "Petty Cash Workflow",
+			Status:    1,
+			WorkflowDetails: []model.WorkflowDetail{
+				{
+					Name:    "Waiting for Finance Approve",
+					Seq:     1,
+					State:   2,
+					RoleID:  *financeRole.ID,
+					IsFinal: 1,
+					Status:  1,
+				},
+			},
+		}
+		if err := db.Create(&workflow).Error; err != nil {
+			log.Printf("Could not seed petty cash workflow: %v", err)
+		}
+	}
+
+	var pettyCashWorkflow model.Workflow
+	db.Where("name = ? ", "Petty Cash Workflow").First(&pettyCashWorkflow)
+	if pettyCashWorkflow.ID != nil {
+		var detail model.WorkflowDetail
+		err := db.Where("workflow_id = ? AND seq = ?", pettyCashWorkflow.ID, 1).First(&detail).Error
+		if err == nil {
+			db.Model(&detail).Updates(map[string]interface{}{
+				"name":     "Waiting for Finance Approve",
+				"role_id":  *financeRole.ID,
+				"state":    2,
+				"is_final": 1,
+				"status":   1,
+			})
+		} else {
+			db.Create(&model.WorkflowDetail{
+				BaseModel:  model.BaseModel{CreatedAt: time.Now()},
+				WorkflowID: *pettyCashWorkflow.ID,
+				Name:       "Waiting for Finance Approve",
+				Seq:        1,
+				State:      2,
+				RoleID:     *financeRole.ID,
+				IsFinal:    1,
+				Status:     1,
+			})
+		}
+	}
+
+	var chkPettyCashSystem int64
+	db.Model(&model.System{}).
+		Where("slug = ?", string(enums.PettyCashSystemSlug)).Count(&chkPettyCashSystem)
+	if chkPettyCashSystem == 0 && pettyCashWorkflow.ID != nil {
+		system := model.System{
+			BaseModel:  model.BaseModel{CreatedAt: time.Now()},
+			Slug:       string(enums.PettyCashSystemSlug),
+			Name:       "Petty Cash",
+			Status:     1,
+			WorkflowID: *pettyCashWorkflow.ID,
+		}
+		if err := db.Create(&system).Error; err != nil {
+			log.Printf("Could not seed petty cash system: %v", err)
+		}
+	} else if pettyCashWorkflow.ID != nil {
+		var system model.System
+		db.Model(&system).Where("slug = ? ", string(enums.PettyCashSystemSlug)).Updates(map[string]interface{}{
+			"slug":        string(enums.PettyCashSystemSlug),
+			"name":        "Petty Cash",
+			"workflow_id": *pettyCashWorkflow.ID,
+		})
+	}
 }

@@ -48,6 +48,7 @@ func main() {
 	if *seedFlag == "t" {
 		seed.SeedUser(db)
 		seed.SeedWorkflow(db)
+		seed.SeedPettyCash(db)
 		seed.SeedLeaveQuota(db)
 		return
 	}
