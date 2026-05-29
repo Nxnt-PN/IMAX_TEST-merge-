@@ -12,6 +12,7 @@ const MainLayout = lazy(() => import("@/layouts/MainLayout"));
 // Pages
 const Login = lazy(() => import("@/pages/Login"));
 const Dashboard = lazy(() => import("@/pages/Dashboard"));
+const SettingsPortalPage = lazy(() => import("@/pages/SettingsPortalPage"));
 
 const UserIndex = lazy(() => import("@/components/users/UserIndex"));
 const RoleIndex = lazy(() => import("@/components/roles/RoleIndex"));
@@ -76,7 +77,7 @@ const router = createBrowserRouter([
           {
             path: "settings",
             children: [
-              { index: true, element: <Navigate to="systems" replace /> },
+              { index: true, element: <SettingsPortalPage /> },
               { path: "workflow", element: <WorkflowIndex /> },
               { path: "leave-quotas", element: <LeaveQuotaIndex /> },
               { path: "systems", element: <SystemIndex /> },

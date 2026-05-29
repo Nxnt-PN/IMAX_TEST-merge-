@@ -2,7 +2,6 @@
   "app": {
     "title": "iMAXX Smart Office"
   },
-
   "button": {
     "save": "Save",
     "cancel": "Cancel",
@@ -19,7 +18,6 @@
     "notification": "Mark all as read",
     "close": "Close"
   },
-
   "action": {
     "save": "Save",
     "cancel": "Cancel",
@@ -33,7 +31,6 @@
     "clear": "Clear",
     "delete": "Delete"
   },
-
   "form": {
     "date": "Date",
     "from": "From",
@@ -92,12 +89,11 @@
     "day-per-year": "Day / Year",
     "day": "Day",
     "location": "Location",
-    "state":"State",
-    "year-abbreviate":"y",
-    "month-abbreviate":"m",
-    "day-abbreviate":"d"
+    "state": "State",
+    "year-abbreviate": "y",
+    "month-abbreviate": "m",
+    "day-abbreviate": "d"
   },
-
   "label": {
     "view-all-notification": "View all notifications",
     "login": "Login",
@@ -116,9 +112,8 @@
     "action-by": "{{action}} by {{name}} at {{dateTime}}",
     "at": "at",
     "history": "Log History",
-    "change-password-success":"Change Password Successfully"
+    "change-password-success": "Change Password Successfully"
   },
-
   "error": {
     "unauthorized": "Unauthorized",
     "unauthorized-subtitle": "Your session has expired. Please log in again.",
@@ -126,11 +121,9 @@
     "internal-server": "Something went wrong on our server (500).",
     "no-internet": "Please check your internet connection."
   },
-
   "placeholder": {
     "confirm-remark": "Enter remark or additional note (optional)"
   },
-
   "leave-type": {
     "all": "All Leave Type",
     "absence": "Business",
@@ -138,7 +131,6 @@
     "sick": "Sick",
     "other": "Other"
   },
-
   "menu": {
     "dashboard": "Dashboard",
     "notification": "Notification",
@@ -155,9 +147,17 @@
     "workflow": "Workflow",
     "system": "System",
     "my-profile": "Profile",
-    "logout": "Logout"
+    "logout": "Logout",
+    "workflows": "Workflows",
+    "leave": "Leave",
+    "petty-cash": "Petty Cash",
+    "my-pettycash": "My Petty Cash",
+    "pettycash-task": "Petty Cash Tasks",
+    "pettycash-summary": "Petty Cash Summary",
+    "pettycash-projects": "Petty Cash Projects",
+    "pettycash-reasons": "Petty Cash Reasons",
+    "locations": "Locations"
   },
-
   "titles": {
     "dashboard": {
       "name": "Dashboard",
@@ -218,60 +218,87 @@
     "login": {
       "name": "Login",
       "subtitle": "Login to continue"
+    },
+    "my-pettycash": {
+      "name": "My Petty Cash",
+      "subtitle": "Submit petty cash requests and review your request history."
+    },
+    "pettycash-task": {
+      "name": "Petty Cash Tasks",
+      "subtitle": "Pending petty cash approvals and finance review tasks."
+    },
+    "pettycash-summary": {
+      "name": "Petty Cash Summary",
+      "subtitle": "Review petty cash spending by status, project, and reason."
+    },
+    "pettycash-projects": {
+      "name": "Petty Cash Projects",
+      "subtitle": "Manage project master data for petty cash requests."
+    },
+    "pettycash-reasons": {
+      "name": "Petty Cash Reasons",
+      "subtitle": "Manage reason categories used by petty cash requests."
+    },
+    "locations": {
+      "name": "Locations",
+      "subtitle": "Manage office locations used by employee profiles."
     }
   },
-
   "leave-state": {
     "all": "All Status",
     "draft": "Draft",
     "waiting-hr-approval": "Waiting HR Approval",
     "waiting-manager-approval": "Waiting Manager Approval",
     "complete": "Completed",
-    "cancelled": "Cancelled"
+    "cancelled": "Cancelled",
+    "waiting-finance-approval": "Waiting Finance Approval"
   },
-
   "permissions": {
     "view-user": "View User",
     "create-user": "Create User",
     "edit-user": "Edit User",
     "delete-user": "Delete User",
-
     "view-role": "View Role",
     "create-role": "Create Role",
     "edit-role": "Edit Role",
     "delete-role": "Delete Role",
-
     "view-workflow": "View Workflow",
     "create-workflow": "Create Workflow",
     "edit-workflow": "Edit Workflow",
     "delete-workflow": "Delete Workflow",
-
     "view-system": "View System",
     "edit-system": "Edit System",
-
     "view-leave-quota": "View Leave Quota",
     "create-leave-quota": "Create Leave Quota",
     "edit-leave-quota": "Edit Leave Quota",
     "delete-leave-quota": "Delete Leave Quota",
-
     "view-leave-form": "View Leave Form",
     "create-leave-form": "Create Leave Form",
     "edit-leave-form": "Edit Leave Form",
     "delete-leave-form": "Delete Leave Form",
-
     "view-my-task": "View My Task",
     "edit-my-task": "Edit My Task",
-
     "save-leave": "Save Leave",
     "submit-leave": "Submit Leave",
     "approve-leave": "Approve Leave",
     "reject-leave": "Reject Leave",
     "cancel-leave": "Cancel Leave",
-
     "view-report": "View Report",
-    "export-report": "Export Report"
+    "export-report": "Export Report",
+    "view-pettycash": "View Petty Cash",
+    "create-pettycash": "Create Petty Cash",
+    "edit-pettycash": "Edit Petty Cash",
+    "delete-pettycash": "Delete Petty Cash",
+    "save-pettycash": "Save Petty Cash",
+    "submit-pettycash": "Submit Petty Cash",
+    "approve-pettycash": "Approve Petty Cash",
+    "reject-pettycash": "Reject Petty Cash",
+    "cancel-pettycash": "Cancel Petty Cash",
+    "resend-pettycash": "Resend Petty Cash",
+    "view-pettycash-report": "View Petty Cash Report",
+    "export-pettycash-report": "Export Petty Cash Report",
+    "manage-pettycash-master": "Manage Petty Cash Master Data"
   },
-
   "dashboard": {
     "leave-summary": "Leave Summary",
     "m-leave-calendar": "My Leave Calendar",
@@ -287,5 +314,15 @@
     "leave-date-range": "Leave Date",
     "more": "more",
     "details": "Details"
+  },
+  "settings-portal": {
+    "core": {
+      "title": "Core Settings",
+      "description": "Manage workflows and system configuration."
+    },
+    "leave": {
+      "title": "Leave Settings",
+      "description": "Manage leave quotas and related leave configuration."
+    }
   }
 }

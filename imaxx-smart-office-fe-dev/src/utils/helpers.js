@@ -8,6 +8,8 @@ export const hasAllPermissions = (permissions, required) =>
 export const hasAnyPermission = (permissions, required) =>
   required.some((r) => permissions.includes(r));
 
-export const saveTranslationToLocalStorage = (lang) => localStorage.setItem("language", lang);
+export const saveTranslationToLocalStorage = (lang) => {
+  localStorage.setItem("language", lang);
+  window.dispatchEvent(new CustomEvent("languagechange", { detail: lang }));
+};
 export const getTranslationFromLocalStorage = () => localStorage.getItem("language");
-

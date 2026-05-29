@@ -144,4 +144,59 @@ export const PERMISSION_META = {
     module: "leave_action",
     label: "cancel",
   },
+
+
+  // ===== Petty Cash =====
+  [PERMISSION.VIEW_PETTYCASH]: {
+    module: "petty_cash",
+    label: "view-pettycash",
+  },
+  [PERMISSION.CREATE_PETTYCASH]: {
+    module: "petty_cash",
+    label: "create-pettycash",
+  },
+  [PERMISSION.EDIT_PETTYCASH]: {
+    module: "petty_cash",
+    label: "edit-pettycash",
+  },
+  [PERMISSION.DELETE_PETTYCASH]: {
+    module: "petty_cash",
+    label: "delete-pettycash",
+  },
+  [PERMISSION.SAVE_PETTYCASH]: {
+    module: "petty_cash_action",
+    label: "save-pettycash",
+  },
+  [PERMISSION.SUBMIT_PETTYCASH]: {
+    module: "petty_cash_action",
+    label: "submit-pettycash",
+  },
+  [PERMISSION.APPROVE_PETTYCASH]: {
+    module: "petty_cash_action",
+    label: "approve-pettycash",
+  },
+  [PERMISSION.REJECT_PETTYCASH]: {
+    module: "petty_cash_action",
+    label: "reject-pettycash",
+  },
+  [PERMISSION.CANCEL_PETTYCASH]: {
+    module: "petty_cash_action",
+    label: "cancel-pettycash",
+  },
+  [PERMISSION.RESEND_PETTYCASH]: {
+    module: "petty_cash_action",
+    label: "resend-pettycash",
+  },
+  [PERMISSION.VIEW_PETTYCASH_REPORT]: {
+    module: "petty_cash_report",
+    label: "view-pettycash-report",
+  },
+  [PERMISSION.EXPORT_PETTYCASH_REPORT]: {
+    module: "petty_cash_report",
+    label: "export-pettycash-report",
+  },
+  [PERMISSION.MANAGE_PETTYCASH_MASTER]: {
+    module: "petty_cash_master",
+    label: "manage-pettycash-master",
+  },
 };
