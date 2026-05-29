@@ -4,8 +4,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
   faDatabase,
+  faFileInvoiceDollar,
   faFileLines,
   faGear,
+  faLocationDot,
   faSitemap,
 } from "@fortawesome/free-solid-svg-icons";
 import AutoBreadcrumb from "@/components/AutoBreadcrumb";
@@ -21,16 +23,8 @@ export default function SettingsPortalPage() {
       icon: faGear,
       accent: "primary",
       items: [
-        {
-          name: t("common:menu.workflow"),
-          path: "/settings/workflow",
-          icon: faSitemap,
-        },
-        {
-          name: t("common:menu.system"),
-          path: "/settings/systems",
-          icon: faDatabase,
-        },
+        { name: t("common:menu.workflow"), path: "/settings/workflow", icon: faSitemap },
+        { name: t("common:menu.system"), path: "/settings/systems", icon: faDatabase },
       ],
     },
     {
@@ -39,11 +33,18 @@ export default function SettingsPortalPage() {
       icon: faFileLines,
       accent: "success",
       items: [
-        {
-          name: t("common:menu.leave-quota"),
-          path: "/settings/leave-quotas",
-          icon: faFileLines,
-        },
+        { name: t("common:menu.leave-quota"), path: "/settings/leave-quotas", icon: faFileLines },
+      ],
+    },
+    {
+      title: t("common:settings-portal.pettycash.title"),
+      description: t("common:settings-portal.pettycash.description"),
+      icon: faFileInvoiceDollar,
+      accent: "info",
+      items: [
+        { name: t("common:menu.pettycash-projects"), path: "/pettycash/projects", icon: faFileInvoiceDollar },
+        { name: t("common:menu.pettycash-reasons"), path: "/pettycash/reasons", icon: faFileLines },
+        { name: t("common:menu.locations"), path: "/settings/locations", icon: faLocationDot },
       ],
     },
   ];
@@ -64,7 +65,7 @@ export default function SettingsPortalPage() {
 
         <div className="row g-3">
           {systems.map((system) => (
-            <div className="col-12 col-lg-6" key={system.title}>
+            <div className="col-12 col-lg-4" key={system.title}>
               <div className="card h-100">
                 <div className="card-body">
                   <div className="d-flex align-items-start gap-3 mb-3">
@@ -89,10 +90,7 @@ export default function SettingsPortalPage() {
                       >
                         <FontAwesomeIcon icon={item.icon} className="text-muted" />
                         <span className="fw-semibold">{item.name}</span>
-                        <FontAwesomeIcon
-                          icon={faArrowRight}
-                          className="ms-auto text-muted"
-                        />
+                        <FontAwesomeIcon icon={faArrowRight} className="ms-auto text-muted" />
                       </button>
                     ))}
                   </div>

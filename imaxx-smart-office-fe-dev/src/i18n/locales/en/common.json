@@ -323,6 +323,10 @@
     "leave": {
       "title": "Leave Settings",
       "description": "Manage leave quotas and related leave configuration."
+    },
+    "pettycash": {
+      "title": "Petty Cash Settings",
+      "description": "Manage projects, reasons, and locations for petty cash requests."
     }
   }
 }

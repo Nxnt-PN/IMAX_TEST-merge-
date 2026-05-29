@@ -1,0 +1,303 @@
+/*
+ * pettycash.css
+ * Scoped under .pettycash-module เพื่อป้องกัน leak ออกนอก module
+ * ไม่ใส่ @tailwind ที่นี่ — โหลดใน main entry อยู่แล้ว
+ */
+
+/* ── Typography ─────────────────────────────────── */
+.pettycash-module {
+  color: var(--bs-body-color, #212529);
+}
+
+.pettycash-module h1,
+.pettycash-module h2,
+.pettycash-module h3,
+.pettycash-module h4 {
+  letter-spacing: 0;
+}
+
+/* ── Border radius ──────────────────────────────── */
+.pettycash-module .rounded-xl,
+.pettycash-module .rounded-2xl,
+.pettycash-module .rounded-lg {
+  border-radius: 0.5rem;
+}
+
+/* ── Shadow — ให้เบาพอแยก layer ออกได้ ─────────── */
+/* ไม่ลบ shadow ทิ้งหมด เพราะทำให้ card ดูแบนผิดปกติ */
+.pettycash-module .shadow-\[0_1px_8px_rgba\(15\,23\,42\,0\.06\)\],
+.pettycash-module .shadow-\[0_1px_8px_rgba\(15\,23\,42\,0\.05\)\],
+.pettycash-module .shadow-\[0_1px_6px_rgba\(15\,23\,42\,0\.06\)\] {
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* ── Borders ─────────────────────────────────────── */
+.pettycash-module .border-slate-100,
+.pettycash-module .border-slate-200 {
+  border-color: var(--bs-border-color, #dee2e6);
+}
+
+/* ── Primary color — ชี้ไป host --primary ────────── */
+.pettycash-module .bg-blue-600,
+.pettycash-module .bg-primary {
+  background-color: var(--primary, #0061A8) !important;
+}
+
+.pettycash-module .text-blue-600,
+.pettycash-module .text-primary {
+  color: var(--primary, #0061A8) !important;
+}
+
+.pettycash-module .hover\:bg-blue-700:hover,
+.pettycash-module .hover\:bg-primary-700:hover {
+  background-color: var(--primary-hover, #00518f) !important;
+}
+
+/* ── Blue → Primary remapping (เพื่อความสม่ำเสมอของ design) ── */
+.pettycash-module .bg-blue-50 {
+  background-color: color-mix(in srgb, var(--primary, #0061A8) 8%, #fff) !important;
+}
+
+.pettycash-module .hover\:bg-blue-100:hover {
+  background-color: color-mix(in srgb, var(--primary, #0061A8) 16%, #fff) !important;
+}
+
+.pettycash-module .hover\:text-blue-800:hover {
+  color: var(--primary-hover, #00518f) !important;
+}
+
+.pettycash-module .focus\:border-blue-500:focus,
+.pettycash-module .focus\:border-primary-500:focus {
+  border-color: var(--primary, #0061A8) !important;
+  outline: none;
+}
+
+/* ── Table ───────────────────────────────────────── */
+.pettycash-module table {
+  margin-bottom: 0;
+}
+
+.pettycash-module .last-row-filter .pettycash-filter-actions {
+  flex: 0 0 auto;
+  width: auto;
+}
+
+.pettycash-module .last-row-filter .pettycash-filter-actions button {
+  flex: 0 0 auto;
+  min-width: 104px;
+  height: 38px;
+}
+
+.pettycash-module .petty-stat-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 104px;
+  overflow: hidden;
+  border: 1px solid var(--bs-border-color, #dee2e6);
+  border-radius: 0.5rem;
+  background: #fff;
+  padding: 1rem 1.1rem;
+  box-shadow: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.pettycash-module .petty-stat-card.is-active {
+  border-color: var(--petty-stat-color, var(--primary, #0061A8));
+  background: color-mix(in srgb, var(--petty-stat-color, var(--primary, #0061A8)) 6%, #fff);
+}
+
+.pettycash-module .petty-stat-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  width: auto;
+  background: var(--petty-stat-color, var(--primary, #0061A8));
+}
+
+.pettycash-module .petty-stat-primary {
+  --petty-stat-color: var(--primary, #0061A8);
+}
+
+.pettycash-module .petty-stat-success {
+  --petty-stat-color: var(--bs-success, #198754);
+}
+
+.pettycash-module .petty-stat-danger {
+  --petty-stat-color: var(--bs-danger, #dc3545);
+}
+
+.pettycash-module .petty-stat-warning {
+  --petty-stat-color: var(--bs-warning, #ffc107);
+}
+
+.pettycash-module .petty-stat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex: 0 0 auto;
+  border-radius: 0.5rem;
+  background: var(--bs-light, #f8f9fa);
+  border: 1px solid var(--bs-border-color, #dee2e6);
+  font-size: 0.9rem;
+  opacity: 0.85;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+
+.pettycash-module .petty-stat-card:hover .petty-stat-icon,
+.pettycash-module .petty-stat-card:focus-visible .petty-stat-icon {
+  border-color: currentColor;
+  background: #fff;
+  opacity: 1;
+}
+
+.pettycash-module .petty-stat-card:focus-visible {
+  outline: 2px solid var(--petty-stat-color, var(--primary, #0061A8));
+  outline-offset: 2px;
+}
+
+.pettycash-module .petty-add-item-button {
+  border-color: var(--primary, #0061A8);
+  background: color-mix(in srgb, var(--primary, #0061A8) 8%, #fff);
+  color: var(--primary, #0061A8);
+}
+
+.pettycash-module .petty-add-item-button:hover,
+.pettycash-module .petty-add-item-button:focus-visible {
+  border-color: var(--primary-hover, #00518f);
+  background: var(--primary-hover, #00518f);
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .pettycash-module .last-row-filter .pettycash-status-filter {
+    flex: 0 0 220px;
+    max-width: 220px;
+  }
+
+  .pettycash-module .last-row-filter .pettycash-keyword-filter {
+    flex: 1 1 420px;
+    min-width: 320px;
+  }
+}
+
+/* ── Stats section wrapper ─────────────────────── */
+.pettycash-module .petty-stats-section {
+  /* ไม่มีอะไรพิเศษ — แค่ wrap toggle + grid */
+}
+
+/* ── Mobile toggle button (hidden on sm+) ────────── */
+.pettycash-module .petty-stats-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.45rem 0.75rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--bs-border-color, #dee2e6);
+  border-radius: 0.5rem;
+  background: #fff;
+  font-size: 0.82rem;
+  color: var(--bs-body-color, #212529);
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
+}
+
+.pettycash-module .petty-stats-toggle:hover {
+  background: var(--bs-light, #f8f9fa);
+}
+
+.pettycash-module .petty-stats-toggle-dots {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.pettycash-module .petty-stats-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.pettycash-module .petty-stats-dot-primary  { background: var(--primary, #0061A8); }
+.pettycash-module .petty-stats-dot-success  { background: var(--bs-success, #198754); }
+.pettycash-module .petty-stats-dot-danger   { background: var(--bs-danger, #dc3545); }
+.pettycash-module .petty-stats-dot-warning  { background: var(--bs-warning, #ffc107); }
+
+.pettycash-module .petty-stats-toggle-label {
+  flex: 1;
+}
+
+.pettycash-module .petty-stats-toggle-icon {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  opacity: 0.6;
+  margin-left: auto;
+}
+
+/* ── Collapsible grid (mobile only) ─────────────── */
+/* บนมือถือ grid ซ่อนโดย default — แสดงเมื่อ --open */
+@media (max-width: 575.98px) {
+  .pettycash-module .petty-stats-grid {
+    display: none;
+  }
+
+  .pettycash-module .petty-stats-grid.petty-stats-grid--open {
+    display: flex;
+    flex-wrap: wrap;
+    animation: petty-stats-fadein 0.18s ease;
+  }
+}
+
+@keyframes petty-stats-fadein {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Compact card on mobile ──────────────────────── */
+@media (max-width: 575.98px) {
+  .pettycash-module .petty-stat-card {
+    min-height: 72px;
+    padding: 0.6rem 0.7rem;
+  }
+
+  .pettycash-module .petty-stat-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .pettycash-module .petty-stat-value {
+    font-size: 1.35rem;
+  }
+
+  .pettycash-module .petty-stat-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* ── Normal label/value (sm+) ─────────────────────── */
+@media (min-width: 576px) {
+  .pettycash-module .petty-stat-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .pettycash-module .petty-stat-value {
+    font-size: 1.75rem;
+  }
+}
+

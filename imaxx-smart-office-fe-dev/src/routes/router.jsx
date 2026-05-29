@@ -12,7 +12,6 @@ const MainLayout = lazy(() => import("@/layouts/MainLayout"));
 // Pages
 const Login = lazy(() => import("@/pages/Login"));
 const Dashboard = lazy(() => import("@/pages/Dashboard"));
-const SettingsPortalPage = lazy(() => import("@/pages/SettingsPortalPage"));
 
 const UserIndex = lazy(() => import("@/components/users/UserIndex"));
 const RoleIndex = lazy(() => import("@/components/roles/RoleIndex"));
@@ -25,6 +24,8 @@ const MyLeaveIndex = lazy(() => import("@/components/myLeave/MyLeaveIndex"));
 const Notifications = lazy(() => import("@/components/NotificationAll"));
 const LeaveSummaryReportIndex = lazy(() => import("@/components/leaveSummaryReport/LeaveSummaryReportIndex"));
 const LeaveStaffReportIndex = lazy(() => import("@/components/leaveStaffReport/LeaveStaffReportIndex"));
+const PettycashPage = lazy(() => import("@/modules/pettycash/PettycashPage"));
+const SettingsPortalPage = lazy(() => import("@/pages/SettingsPortalPage"));
 
 const BadRequestPage = lazy(() => import("@/pages/Error400"));
 const ForbiddenPage = lazy(() => import("@/pages/Error403"));
@@ -67,6 +68,17 @@ const router = createBrowserRouter([
             ],
           },
           {
+            path: "pettycash",
+            children: [
+              { index: true, element: <PettycashPage page="myCash" /> },
+              { path: "my-tasks", element: <PettycashPage page="myTasks" /> },
+              { path: "summary", element: <PettycashPage page="summary" /> },
+              { path: "projects", element: <PettycashPage page="project" /> },
+              { path: "reasons", element: <PettycashPage page="reason" /> },
+              { path: "locations", element: <PettycashPage page="location" /> },
+            ],
+          },
+          {
             path: "user-management",
             children: [
               { index: true, element: <Navigate to="users" replace /> },
@@ -81,6 +93,7 @@ const router = createBrowserRouter([
               { path: "workflow", element: <WorkflowIndex /> },
               { path: "leave-quotas", element: <LeaveQuotaIndex /> },
               { path: "systems", element: <SystemIndex /> },
+              { path: "locations", element: <PettycashPage page="location" /> },
             ],
           },
         ],
