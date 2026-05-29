@@ -107,34 +107,13 @@ const menuList = ({ t, menuStatus }) => [
       {
         id: "settings",
         name: t("common:menu.setting"),
+        link: "/settings",
         icon: faGear,
         permissions: [
           PERMISSION.VIEW_LEAVE_QUOTA,
           PERMISSION.VIEW_WORKFLOW,
           PERMISSION.VIEW_SYSTEM,
-        ],
-        children: [
-          {
-            id: "leave-quotas",
-            name: t("common:menu.leave-quota"),
-            link: "/settings/leave-quotas",
-            icon: faMinus,
-            permissions: [PERMISSION.VIEW_LEAVE_QUOTA],
-          },
-          {
-            id: "workflow",
-            name: t("common:menu.workflow"),
-            link: "/settings/workflow",
-            icon: faMinus,
-            permissions: [PERMISSION.VIEW_WORKFLOW],
-          },
-          {
-            id: "systems",
-            name: t("common:menu.system"),
-            link: "/settings/systems",
-            icon: faMinus,
-            permissions: [PERMISSION.VIEW_SYSTEM],
-          },
+          PERMISSION.MANAGE_PETTYCASH_MASTER,
         ],
       },
     ],
@@ -194,7 +173,7 @@ function MenuComponent({
         <div key={item.id}>
           {/* ===== Section ===== */}
           {item.section && (
-            <Can required={item.permissions} permissions={authPermissions}>
+            <Can required={item.permissions} permissions={authPermissions} isAll={false}>
               <li className="nav-section">
                 <span className="text text-uppercase">{item.section} </span>
               </li>
@@ -203,7 +182,7 @@ function MenuComponent({
 
           {/* ===== Normal Menu ===== */}
           {item.link && (
-            <Can required={item.permissions} permissions={authPermissions}>
+            <Can required={item.permissions} permissions={authPermissions} isAll={false}>
               <li className="nav-link">
                 <Tooltip
                   label={item.name}
@@ -241,6 +220,7 @@ function MenuComponent({
             <Can
               required={sub.permissions}
               permissions={authPermissions}
+              isAll={false}
               key={sub.id}
             >
               <li className={`nav-link submenu`}>
@@ -270,6 +250,7 @@ function MenuComponent({
                         <Can
                           required={child.permissions}
                           permissions={authPermissions}
+                          isAll={false}
                           key={child.id}
                         >
                           <li className={`nav-link child`}>

@@ -46,4 +46,18 @@ export const PERMISSION = Object.freeze({
   VIEW_REPORT:'view_report',
   EXPORT_REPORT:'export_report',
 
+  // petty cash
+  VIEW_PETTYCASH: "view_pettycash",
+  CREATE_PETTYCASH: "create_pettycash",
+  EDIT_PETTYCASH: "edit_pettycash",
+  DELETE_PETTYCASH: "delete_pettycash",
+  SAVE_PETTYCASH: "save_pettycash",
+  SUBMIT_PETTYCASH: "submit_pettycash",
+  APPROVE_PETTYCASH: "approve_pettycash",
+  REJECT_PETTYCASH: "reject_pettycash",
+  CANCEL_PETTYCASH: "cancel_pettycash",
+  RESEND_PETTYCASH: "resend_pettycash",
+  VIEW_PETTYCASH_REPORT: "view_pettycash_report",
+  EXPORT_PETTYCASH_REPORT: "export_pettycash_report",
+  MANAGE_PETTYCASH_MASTER: "manage_pettycash_master",
 });

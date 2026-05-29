@@ -223,3 +223,38 @@ Commit: `feat: add petty cash approval workflow`
 
 - ถ้าต้องถอย PR นี้ ให้ลบ workflow routes ออกจาก `pettycashRoute.go`, revert `menuStatusService.go`, `menuStatusResponse.go`, dependency wiring ใน `main.go`, และ revert seed workflow/sample forms
 
+## PR 5: Frontend Foundation
+
+Branch: `feature/pettycash-05-frontend-foundation`
+Commit: `feat: add frontend foundation for petty cash`
+
+### Summary
+เพิ่มฐาน frontend ที่จำเป็นก่อนย้ายหน้าจอ Petty Cash จริง ได้แก่ permission constants, i18n keys, location service, settings portal และการปรับเมนู Settings ให้เข้า portal ได้ โดยยังไม่เปิด route ของ Petty Cash จนกว่า PR 6 เพื่อป้องกันเมนูพาไปยังหน้าที่ยังไม่ได้ย้ายเข้ามา
+
+### Files Changed
+| File/Area | Type | Before | After | Purpose |
+|---|---|---|---|---|
+| `imaxx-smart-office-fe-dev/src/constants/permission/permissionEnum.js` | Modified | มีเฉพาะ permission ของ user/role/workflow/leave/report | เพิ่ม permission ของ Petty Cash ตาม seed/backend | ให้ frontend รู้จักสิทธิ์ Petty Cash ก่อนเปิด UI จริง |
+| `imaxx-smart-office-fe-dev/src/constants/permission/permissionMeta.js` | Modified | หน้าจอจัดการ role ยังไม่มี metadata ของ Petty Cash | เพิ่ม module/label ของ permission Petty Cash | ให้ role/permission UI แสดงสิทธิ์ Petty Cash ได้ถูกกลุ่ม |
+| `imaxx-smart-office-fe-dev/src/services/locationService.js` | Added | ไม่มี service สำหรับ location master | เพิ่ม service เรียก `/api/locations/` | เตรียมข้อมูล location สำหรับ user/profile และ Petty Cash |
+| `imaxx-smart-office-fe-dev/src/pages/SettingsPortalPage.jsx` | Added | `/settings` redirect ไปหน้า systems | เพิ่มหน้า portal รวมทางเข้า workflow/system/leave quota | ทำให้ settings รองรับหลาย module โดยไม่เพิ่ม submenu ซ้อนมากเกินไป |
+| `imaxx-smart-office-fe-dev/src/routes/router.jsx` | Modified | `/settings` redirect ไป `/settings/systems` | `/settings` แสดง Settings Portal และ route เดิมยังอยู่ | เปิด settings portal โดยไม่เปลี่ยน path เดิมของ workflow/leave quota/system |
+| `imaxx-smart-office-fe-dev/src/components/Sidebar.jsx` | Modified | Settings เป็น submenu แยก workflow/leave quota/system | Settings เป็น link เข้า `/settings` และตรวจสิทธิ์แบบมีอย่างใดอย่างหนึ่ง | ให้ผู้ใช้เข้าศูนย์รวม settings จากเมนูเดียว และไม่บังคับต้องมีทุก permission |
+| `imaxx-smart-office-fe-dev/src/i18n/locales/en/common.json` | Modified | ยังไม่มีคำของ Petty Cash และ settings portal | เพิ่ม menu/title/permission/status keys ที่ frontend ต้องใช้ | เตรียมข้อความอังกฤษสำหรับ PR ถัดไป |
+| `imaxx-smart-office-fe-dev/src/i18n/locales/th/common.json` | Modified | ยังไม่มีคำของ Petty Cash และ settings portal | เพิ่ม menu/title/permission/status keys ที่ frontend ต้องใช้ | เตรียมข้อความไทยสำหรับ PR ถัดไป |
+| `imaxx-smart-office-fe-dev/src/utils/helpers.js` | Modified | เปลี่ยนภาษาเก็บลง localStorage อย่างเดียว | dispatch event `languagechange` หลังเปลี่ยนภาษา | ช่วยให้หน้าที่ subscribe event เปลี่ยนภาษาทันที |
+
+### Behavior Impact
+- เพิ่มหน้า `/settings` เป็น Settings Portal
+- Route เดิม `/settings/workflow`, `/settings/leave-quotas`, `/settings/systems` ยังอยู่เหมือนเดิม
+- เพิ่ม frontend permission keys สำหรับ Petty Cash แต่ยังไม่เปิดหน้า Petty Cash ใน PR นี้
+- ตั้งใจยังไม่เพิ่ม `/pettycash`, `/pettycash/my-tasks`, `/pettycash/summary`, `/pettycash/projects`, `/pettycash/reasons`, `/settings/locations` จนกว่า PR 6 จะย้าย module UI เข้ามาครบ
+
+### Tests Run
+- `npm.cmd run build` ยังรันไม่ผ่านเพราะ clean frontend workspace ไม่มี `node_modules` และหา `vite` ไม่เจอ
+- ทดลอง `npm.cmd ci --ignore-scripts --prefer-offline` แล้ว timeout ระหว่างติดตั้ง dependency จึงยังไม่สามารถยืนยัน build ในเครื่องนี้ได้
+- ตรวจ static/diff แล้วไม่มี route ที่ import ไปยัง Petty Cash module ที่ยังไม่ได้ย้ายใน PR นี้
+
+### Rollback Note
+- ถ้าต้องถอย PR นี้ ให้ถอย `SettingsPortalPage.jsx`, `locationService.js`, permission/i18n changes, router index ของ `/settings`, และ Sidebar settings link กลับเป็น submenu เดิม
+
