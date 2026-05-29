@@ -258,3 +258,41 @@ Commit: `feat: add frontend foundation for petty cash`
 ### Rollback Note
 - ถ้าต้องถอย PR นี้ ให้ถอย `SettingsPortalPage.jsx`, `locationService.js`, permission/i18n changes, router index ของ `/settings`, และ Sidebar settings link กลับเป็น submenu เดิม
 
+## PR 6: Frontend Petty Cash Core
+
+Branch: `feature/pettycash-06-frontend-pettycash-core`
+Commit: `feat: add petty cash frontend module`
+
+### Summary
+เพิ่ม frontend module ของ Petty Cash เข้า Origin โดยเปิด route หลัก, หน้ารายการ, modal create/view/edit, master data project/reason/location, service API, utility formatter/normalizer, module CSS และเมนูที่เกี่ยวข้อง โดยคง path/API ตาม IMAX_MAIN
+
+### Files Changed
+| File/Area | Type | Before | After | Purpose |
+|---|---|---|---|---|
+| `imaxx-smart-office-fe-dev/src/modules/pettycash/**` | Added | Origin ยังไม่มี frontend module Petty Cash | เพิ่ม module แยกเป็น pages/components/services/utils/i18n/css | ให้ผู้ใช้สร้าง ดู แก้ไข ส่งคำขอ และจัดการ master data ของ Petty Cash |
+| `imaxx-smart-office-fe-dev/src/routes/router.jsx` | Modified | ยังไม่มี route `/pettycash...` และ `/settings/locations` | เพิ่ม route `/pettycash`, `/pettycash/my-tasks`, `/pettycash/summary`, `/pettycash/projects`, `/pettycash/reasons`, `/settings/locations` | เปิดทางเข้า frontend Petty Cash ตาม path ที่ทดสอบใน IMAX_MAIN |
+| `imaxx-smart-office-fe-dev/src/components/Sidebar.jsx` | Modified | Sidebar มี Leave, Report และ Settings เดิม และมี debug `console.log` ตอนปิด sidebar บนมือถือ | เพิ่มกลุ่ม Workflow ที่มี Leave/Petty Cash, เพิ่ม Petty Cash task badge/report link และลบ debug log | ให้ navigation มองเห็น Petty Cash ตาม permission โดยไม่ทิ้ง log ที่ไม่จำเป็น |
+| `imaxx-smart-office-fe-dev/src/pages/SettingsPortalPage.jsx` | Modified | Portal มี core/leave settings | เพิ่ม Petty Cash settings card ไป project/reason/location | รวมจุดตั้งค่า master data ที่ Petty Cash ต้องใช้ |
+| `imaxx-smart-office-fe-dev/package.json` | Modified | ยังไม่มี dependency `lucide-react`, Tailwind/PostCSS | เพิ่ม dependency/devDependency ที่ Petty Cash UI และ Tailwind utilities ต้องใช้ | ทำให้ module import icon และ CSS utilities ได้ |
+| `imaxx-smart-office-fe-dev/package-lock.json` | Modified | lockfile ยังไม่รวม dependency ใหม่ | sync lockfile จาก IMAX_MAIN | ให้ install dependency ได้ตรงกับ source ที่ทดสอบแล้ว |
+| `imaxx-smart-office-fe-dev/postcss.config.js` | Added | ไม่มี PostCSS config | เพิ่ม config Tailwind/PostCSS | ให้ build CSS utilities สำหรับ Petty Cash |
+| `imaxx-smart-office-fe-dev/tailwind.config.js` | Added | ไม่มี Tailwind config | เพิ่ม Tailwind theme/content config | ให้ class utilities ใน module ถูก generate |
+| `imaxx-smart-office-fe-dev/src/assets/css/index.css` | Modified | import CSS เดิมของ host | เพิ่ม `@tailwind components` และ `@tailwind utilities` | ให้ Petty Cash UI ใช้ utility classes ได้ |
+| `imaxx-smart-office-fe-dev/src/i18n/locales/en/common.json` | Modified | มี key foundation จาก PR 5 | เพิ่มข้อความ Settings Portal สำหรับ Petty Cash | ให้ UI ภาษาอังกฤษครบขึ้น |
+| `imaxx-smart-office-fe-dev/src/i18n/locales/th/common.json` | Modified | มี key foundation จาก PR 5 | เพิ่มข้อความ Settings Portal สำหรับ Petty Cash | ให้ UI ภาษาไทยครบขึ้น |
+
+### Behavior Impact
+- เปิดหน้า `/pettycash`, `/pettycash/my-tasks`, `/pettycash/summary`, `/pettycash/projects`, `/pettycash/reasons`
+- เปิดหน้า `/settings/locations` ผ่าน Petty Cash master data location
+- Sidebar จะแสดง Petty Cash และรายงานตาม permission ที่เพิ่มไว้ใน PR ก่อนหน้า
+- ใช้ API `/api/pettycash...` และ `/api/locations...` ตาม backend ที่รวมแล้ว
+- ยังไม่เปลี่ยน API contract, route backend, permission name, schema หรือ workflow behavior
+
+### Tests Run
+- `npm.cmd run build` ยังรันไม่ผ่านเพราะ clean frontend workspace ไม่มี `node_modules` ที่สมบูรณ์ และ `npm ci` timeout ระหว่างติดตั้ง dependency ในเครื่องนี้
+- ตรวจ static import ของ `src/modules/pettycash` แล้ว dependency หลักถูกเพิ่มใน `package.json`
+- ตรวจ JSON i18n EN/TH parse ผ่าน
+
+### Rollback Note
+- ถ้าต้องถอย PR นี้ ให้ถอย `src/modules/pettycash/**`, route `/pettycash...` และ `/settings/locations`, Sidebar Petty Cash entries, Settings Portal Petty Cash card, Tailwind/PostCSS config และ dependency ที่เพิ่มใน package files
+

@@ -19,3 +19,6 @@
 @import "./background.css";
 @import "./datepicker.css";
 @import "./avatar.css";
+
+@tailwind components;
+@tailwind utilities;

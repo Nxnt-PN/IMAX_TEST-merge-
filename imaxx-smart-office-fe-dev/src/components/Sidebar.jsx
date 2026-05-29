@@ -28,30 +28,81 @@ const menuList = ({ t, menuStatus }) => [
     permissions: [],
   },
   {
-    id: "my-leaves",
-    name: t("common:menu.my-leave"),
-    link: "/leave-requests/my-leaves",
-    icon: faListAlt,
-    permissions: [PERMISSION.VIEW_LEAVE_FORM],
-  },
-  {
-    id: "my-leave-tasks",
-    name: t("common:menu.my-task"),
-    link: "/leave-requests/my-tasks",
-    icon: faListAlt,
-    noti: menuStatus?.my_task_count || 0,
-    permissions: [PERMISSION.VIEW_MY_TASK],
+    id: "workflows",
+    section: t("common:menu.workflows"),
+    permissions: [
+      PERMISSION.VIEW_LEAVE_FORM,
+      PERMISSION.VIEW_MY_TASK,
+      PERMISSION.VIEW_PETTYCASH,
+      PERMISSION.APPROVE_PETTYCASH,
+      PERMISSION.REJECT_PETTYCASH,
+    ],
+    children: [
+      {
+        id: "leave",
+        name: t("common:menu.leave"),
+        icon: faListAlt,
+        permissions: [
+          PERMISSION.VIEW_LEAVE_FORM,
+          PERMISSION.VIEW_MY_TASK,
+        ],
+        children: [
+          {
+            id: "my-leaves",
+            name: t("common:menu.my-leave"),
+            link: "/leave-requests/my-leaves",
+            icon: faMinus,
+            permissions: [PERMISSION.VIEW_LEAVE_FORM],
+          },
+          {
+            id: "my-leave-tasks",
+            name: t("common:menu.my-task"),
+            link: "/leave-requests/my-tasks",
+            icon: faMinus,
+            noti: menuStatus?.my_task_count || 0,
+            permissions: [PERMISSION.VIEW_MY_TASK],
+          },
+        ],
+      },
+      {
+        id: "pettycash",
+        name: t("common:menu.petty-cash"),
+        icon: faFile,
+        permissions: [
+          PERMISSION.VIEW_PETTYCASH,
+          PERMISSION.APPROVE_PETTYCASH,
+          PERMISSION.REJECT_PETTYCASH,
+        ],
+        children: [
+          {
+            id: "pettycash-my-requests",
+            name: t("common:menu.my-pettycash"),
+            link: "/pettycash",
+            icon: faMinus,
+            permissions: [PERMISSION.VIEW_PETTYCASH],
+          },
+          {
+            id: "pettycash-tasks",
+            name: t("common:menu.pettycash-task"),
+            link: "/pettycash/my-tasks",
+            icon: faMinus,
+            noti: menuStatus?.pettycash_task_count || 0,
+            permissions: [PERMISSION.APPROVE_PETTYCASH, PERMISSION.REJECT_PETTYCASH],
+          },
+        ],
+      },
+    ],
   },
   {
     id: "report",
     section: "report",
-    permissions: [PERMISSION.VIEW_REPORT], // this permissions is for set section show not includes children
+    permissions: [PERMISSION.VIEW_REPORT, PERMISSION.VIEW_PETTYCASH_REPORT],
     children: [
       {
         id: "report",
         name: t("common:menu.report"),
         icon: faFile,
-        permissions: [PERMISSION.VIEW_REPORT],
+        permissions: [PERMISSION.VIEW_REPORT, PERMISSION.VIEW_PETTYCASH_REPORT],
         children: [
           {
             id: "leave-summary-report",
@@ -67,6 +118,13 @@ const menuList = ({ t, menuStatus }) => [
             icon: faFile,
             permissions: [PERMISSION.VIEW_REPORT],
           },
+          {
+            id: "pettycash-summary-report",
+            name: t("common:menu.pettycash-summary"),
+            link: "/pettycash/summary",
+            icon: faFile,
+            permissions: [PERMISSION.VIEW_PETTYCASH_REPORT],
+          },
         ],
       },
     ],
@@ -80,7 +138,7 @@ const menuList = ({ t, menuStatus }) => [
       PERMISSION.VIEW_LEAVE_QUOTA,
       PERMISSION.VIEW_WORKFLOW,
       PERMISSION.VIEW_SYSTEM,
-    ], // this permissions is for set section show not includes children
+    ],
     children: [
       {
         id: "user-management",
@@ -113,6 +171,7 @@ const menuList = ({ t, menuStatus }) => [
           PERMISSION.VIEW_LEAVE_QUOTA,
           PERMISSION.VIEW_WORKFLOW,
           PERMISSION.VIEW_SYSTEM,
+          PERMISSION.VIEW_USER,
           PERMISSION.MANAGE_PETTYCASH_MASTER,
         ],
       },
@@ -162,7 +221,6 @@ function MenuComponent({
 
   const onClickLink = () => {
     if (isMobile) {
-      console.log("close sidebar");
       setSidebarStatus("close");
     }
   };
@@ -215,15 +273,41 @@ function MenuComponent({
             </Can>
           )}
 
-          {/* ===== Sub Menu ===== */}
-          {item.children?.map((sub) => (
-            <Can
-              required={sub.permissions}
-              permissions={authPermissions}
-              isAll={false}
-              key={sub.id}
-            >
-              <li className={`nav-link submenu`}>
+          {/* ===== Sub Menu & Level 2 Links ===== */}
+          {item.children?.map((sub) => {
+            if (sub.link) {
+              return (
+                <Can required={sub.permissions} permissions={authPermissions} isAll={false} key={sub.id}>
+                  <li className="nav-link">
+                    <Tooltip label={sub.name} enabled={sidebarStatus === "open"} placement="bottom">
+                      <NavLink
+                        to={{ pathname: sub.link, state: null }}
+                        className="link position-relative"
+                        onClick={() => { onClickLink(); toggleMenu(sub.id); }}
+                      >
+                        <FontAwesomeIcon icon={sub.icon} className="icon" />
+                        <span className="text text-capitalize">{sub.name}</span>
+                        {sub.noti > 0 && (
+                          <div className="noti-pill">
+                            <span className="badge rounded-pill bg-danger">{sub.noti}</span>
+                          </div>
+                        )}
+                      </NavLink>
+                    </Tooltip>
+                  </li>
+                </Can>
+              );
+            }
+
+            const totalNoti = sub.children ? sub.children.reduce((acc, child) => acc + (child.noti || 0), 0) : 0;
+            return (
+              <Can
+                required={sub.permissions}
+                permissions={authPermissions}
+                isAll={false}
+                key={sub.id}
+              >
+                <li className={`nav-link submenu`}>
                 <div className="submenu-wrapper">
                   <Tooltip
                     label={sub.name}
@@ -231,12 +315,15 @@ function MenuComponent({
                     placement="top"
                   >
                     <button
-                      className={`link pointer btn sidebar-btn w-100`}
+                      className={`link pointer btn sidebar-btn w-100 position-relative`}
                       onClick={() => toggleMenu(sub.id)}
                       type="button"
                     >
                       <FontAwesomeIcon icon={sub.icon} className="icon" />
                       <span className="text text-capitalize">{sub.name}</span>
+                      {totalNoti > 0 && (
+                        <span className="bg-danger rounded-circle d-inline-block ms-2 flex-shrink-0" style={{ width: "8px", height: "8px" }} title="New requests"></span>
+                      )}
                       <FontAwesomeIcon
                         icon={openMenu === sub.id ? faCaretUp : faCaretDown}
                         className="ms-auto icon caret-icon"
@@ -246,38 +333,53 @@ function MenuComponent({
                   {/* ===== Child ===== */}
                   {openMenu === sub.id && (
                     <ul className="submenu-list">
-                      {sub.children.map((child) => (
-                        <Can
-                          required={child.permissions}
-                          permissions={authPermissions}
-                          isAll={false}
-                          key={child.id}
-                        >
-                          <li className={`nav-link child`}>
-                            <NavLink
-                              to={{
-                                pathname: child.link,
-                                state: null, // delete state
-                              }}
-                              className="submenu-link"
-                              onClick={onClickLink}
-                              end
-                            >
-                              <FontAwesomeIcon
-                                icon={child.icon}
-                                className="submenu-icon"
-                              />
-                              <span className="submenu-text">{child.name}</span>
-                            </NavLink>
-                          </li>
-                        </Can>
-                      ))}
+                      {sub.children.map((child) => {
+                        if (child.groupLabel) {
+                          return (
+                            <li key={child.id} className="nav-section mt-2 px-3 pb-1 opacity-75">
+                              <span className="text text-uppercase" style={{ fontSize: '0.65rem', fontWeight: 700, letterSpacing: '0.5px' }}>{child.groupLabel}</span>
+                            </li>
+                          )
+                        }
+                        return (
+                          <Can
+                            required={child.permissions}
+                            permissions={authPermissions}
+                            isAll={false}
+                            key={child.id}
+                          >
+                            <li className={`nav-link child`}>
+                              <NavLink
+                                to={{
+                                  pathname: child.link,
+                                  state: null, // delete state
+                                }}
+                                className="submenu-link"
+                                onClick={onClickLink}
+                                end
+                              >
+                                <FontAwesomeIcon
+                                  icon={child.icon}
+                                  className="submenu-icon"
+                                />
+                                <span className="submenu-text">{child.name}</span>
+                                {child.noti > 0 && (
+                                  <span className="badge rounded-pill bg-danger ms-auto">
+                                    {child.noti}
+                                  </span>
+                                )}
+                              </NavLink>
+                            </li>
+                          </Can>
+                        )
+                      })}
                     </ul>
                   )}
                 </div>
               </li>
             </Can>
-          ))}
+            );
+          })}
         </div>
       ))}
     </ul>
